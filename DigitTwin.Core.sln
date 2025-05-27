@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Users", "Users", "{8F0BF27F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Core.Users.Abstractions", "Core\Users\DigitTwin.Core.Users.Abstractions\DigitTwin.Core.Users.Abstractions.csproj", "{98A8237D-58E7-48C5-9863-8D74AA2FD221}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Core.Users.Logic", "Core\Users\DigitTwin.Core.Users.Logic\DigitTwin.Core.Users.Logic.csproj", "{8DE93656-C7F1-BC7E-C2E0-0B4488093DE2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{98A8237D-58E7-48C5-9863-8D74AA2FD221}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98A8237D-58E7-48C5-9863-8D74AA2FD221}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98A8237D-58E7-48C5-9863-8D74AA2FD221}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DE93656-C7F1-BC7E-C2E0-0B4488093DE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DE93656-C7F1-BC7E-C2E0-0B4488093DE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DE93656-C7F1-BC7E-C2E0-0B4488093DE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DE93656-C7F1-BC7E-C2E0-0B4488093DE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +53,7 @@ Global
 		{DB052480-B420-4095-860B-CB07B8CED880} = {8F23A8DC-6C70-480D-9579-5B1CC93DF8FF}
 		{8F0BF27F-FE9A-447D-AFAB-F89DBB547FAF} = {36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}
 		{98A8237D-58E7-48C5-9863-8D74AA2FD221} = {8F0BF27F-FE9A-447D-AFAB-F89DBB547FAF}
+		{8DE93656-C7F1-BC7E-C2E0-0B4488093DE2} = {8F0BF27F-FE9A-447D-AFAB-F89DBB547FAF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97F4C5FD-EE42-4749-9BAD-73B506AE8C64}
