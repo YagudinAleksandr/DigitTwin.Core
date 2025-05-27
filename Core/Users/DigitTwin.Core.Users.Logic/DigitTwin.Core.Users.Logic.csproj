@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Lib\DigitTwin.Lib.Abstractions\DigitTwin.Lib.Abstractions.csproj" />
+    <ProjectReference Include="..\DigitTwin.Core.Users.Abstractions\DigitTwin.Core.Users.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>
