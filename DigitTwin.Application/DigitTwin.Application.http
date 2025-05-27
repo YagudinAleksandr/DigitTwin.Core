@@ -1,0 +1,6 @@
+@DigitTwin.Application_HostAddress = http://localhost:5218
+
+GET {{DigitTwin.Application_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
