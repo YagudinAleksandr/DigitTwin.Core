@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DigitTwin.Lib.Abstractions
+namespace DigitTwin.Core.Users
 {
     /// <summary>
     /// Статусы пользователя
