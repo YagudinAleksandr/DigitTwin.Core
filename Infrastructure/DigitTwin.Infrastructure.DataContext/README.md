@@ -1,30 +1,30 @@
-# DigitTwin Data Context
-## Описание сборки
-Данная сборка предназначена для работы с контекстом баз данных. Поддерживаемые базы данных:
+п»ї# DigitTwin Data Context
+## РћРїРёСЃР°РЅРёРµ СЃР±РѕСЂРєРё
+Р”Р°РЅРЅР°СЏ СЃР±РѕСЂРєР° РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅР° РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РєРѕРЅС‚РµРєСЃС‚РѕРј Р±Р°Р· РґР°РЅРЅС‹С…. РџРѕРґРґРµСЂР¶РёРІР°РµРјС‹Рµ Р±Р°Р·С‹ РґР°РЅРЅС‹С…:
 - PostgreSQL
 - MS SQL
 
-## Настройка данного контекста
-Настройка `appsttings.json`
+## РќР°СЃС‚СЂРѕР№РєР° РґР°РЅРЅРѕРіРѕ РєРѕРЅС‚РµРєСЃС‚Р°
+РќР°СЃС‚СЂРѕР№РєР° `appsttings.json`
 ```json
 {
   "Database": {
-    "DbType": "NPG", // или "MSQ" для SQL Server
-    "ConnectionString": "Ваша строка подключения"
+    "DbType": "NPG", // РёР»Рё "MSQ" РґР»СЏ SQL Server
+    "ConnectionString": "Р’Р°С€Р° СЃС‚СЂРѕРєР° РїРѕРґРєР»СЋС‡РµРЅРёСЏ"
   }
 }
 ```
 
-## Использование в сборке
-### Регистрация сервиса (Program.cs)
+## РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РІ СЃР±РѕСЂРєРµ
+### Р РµРіРёСЃС‚СЂР°С†РёСЏ СЃРµСЂРІРёСЃР° (Program.cs)
 ```csharp
 ar builder = WebApplication.CreateBuilder(args);
 
-// Регистрация EF Core с автоматической настройкой
+// Р РµРіРёСЃС‚СЂР°С†РёСЏ EF Core СЃ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕР№ РЅР°СЃС‚СЂРѕР№РєРѕР№
 builder.Services.AddCoreEf(builder.Configuration);
 ```
 
-### Применение миграций при запуске
+### РџСЂРёРјРµРЅРµРЅРёРµ РјРёРіСЂР°С†РёР№ РїСЂРё Р·Р°РїСѓСЃРєРµ
 ```csharp
 var app = builder.Build();
 
@@ -39,15 +39,15 @@ using (var scope = app.Services.CreateScope())
     catch (Exception ex)
     {
         var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "Ошибка при применении миграций");
+        logger.LogError(ex, "РћС€РёР±РєР° РїСЂРё РїСЂРёРјРµРЅРµРЅРёРё РјРёРіСЂР°С†РёР№");
     }
 }
 
 app.Run();
 ```
 
-## Определение моделей и конфигураций
-### 1. Создайте сущности в сборке
+## РћРїСЂРµРґРµР»РµРЅРёРµ РјРѕРґРµР»РµР№ Рё РєРѕРЅС„РёРіСѓСЂР°С†РёР№
+### 1. РЎРѕР·РґР°Р№С‚Рµ СЃСѓС‰РЅРѕСЃС‚Рё РІ СЃР±РѕСЂРєРµ
 ```csharp
 // Entities/User.cs
 public class User
@@ -58,7 +58,7 @@ public class User
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }
 ```
-### 2. Создайте конфигурацию сущности
+### 2. РЎРѕР·РґР°Р№С‚Рµ РєРѕРЅС„РёРіСѓСЂР°С†РёСЋ СЃСѓС‰РЅРѕСЃС‚Рё
 ```csharp
 // Configurations/UserConfiguration.cs
 public class UserConfiguration : EntityConfiguration
@@ -89,32 +89,32 @@ public class UserConfiguration : EntityConfiguration
 }
 ```
 
-### 3. Зарегистрируйте сборку с конфигурациями
+### 3. Р—Р°СЂРµРіРёСЃС‚СЂРёСЂСѓР№С‚Рµ СЃР±РѕСЂРєСѓ СЃ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏРјРё
 ```csharp
 builder.Services.AddCoreEf(
     builder.Configuration,
     configurationsAssembly: typeof(Program).Assembly);
 ```
 
-## Работа с миграциями
-### Создание миграций
+## Р Р°Р±РѕС‚Р° СЃ РјРёРіСЂР°С†РёСЏРјРё
+### РЎРѕР·РґР°РЅРёРµ РјРёРіСЂР°С†РёР№
 ```bash
-# Для PostgreSQL
+# Р”Р»СЏ PostgreSQL
 dotnet ef migrations add InitialCreate --context PostgreDbContext --output-dir "Migrations/Postgre"
 ```
 
 ```bash
-# Для SQL Server
+# Р”Р»СЏ SQL Server
 dotnet ef migrations add InitialCreate --context MsSqlDbContext --output-dir "Migrations/MsSql"
 ```
 
-### Применение миграций
+### РџСЂРёРјРµРЅРµРЅРёРµ РјРёРіСЂР°С†РёР№
 ```bash
-# Для PostgreSQL
+# Р”Р»СЏ PostgreSQL
 dotnet ef database update --context PostgreDbContext
 ```
 
 ```bash
-# Для SQL Server
+# Р”Р»СЏ SQL Server
 dotnet ef database update --context MsSqlDbContext
 ```
