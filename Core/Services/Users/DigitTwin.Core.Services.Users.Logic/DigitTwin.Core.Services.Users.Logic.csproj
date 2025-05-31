@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Infrastructure\DigitTwin.Infrastructure.DataContext\DigitTwin.Infrastructure.DataContext.csproj" />
+    <ProjectReference Include="..\DigitTwin.Core.Services.Users.Abstractions\DigitTwin.Core.Services.Users.Abstractions.csproj" />
+  </ItemGroup>
+
 </Project>

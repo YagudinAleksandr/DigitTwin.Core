@@ -37,6 +37,26 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Core.Services.Use
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Core.Services.Users.Logic", "Core\Services\Users\DigitTwin.Core.Services.Users.Logic\DigitTwin.Core.Services.Users.Logic.csproj", "{EEDDB035-5E37-471C-B50D-23EA9B48C9F3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "localDev", "localDev", "{E41F1531-18C8-4122-B7BE-8A0FD92CEFC9}"
+	ProjectSection(SolutionItems) = preProject
+		pipelines\localDev\compose.yaml = pipelines\localDev\compose.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testDev", "testDev", "{214D6DFC-E9E7-46A4-85EA-C50B40C65E71}"
+	ProjectSection(SolutionItems) = preProject
+		pipelines\testDev\compose.yaml = pipelines\testDev\compose.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "env", "env", "{EB234536-8CC1-4ECA-A4D7-8DEEAD7D4BFA}"
+	ProjectSection(SolutionItems) = preProject
+		pipelines\testDev\env\DigitTwinGateway.env = pipelines\testDev\env\DigitTwinGateway.env
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "env", "env", "{99B844B0-CA69-40AE-BE4E-D6A42CEF41BD}"
+	ProjectSection(SolutionItems) = preProject
+		pipelines\localDev\env\DigitTwinGateway.env = pipelines\localDev\env\DigitTwinGateway.env
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -94,6 +114,10 @@ Global
 		{7940160D-9481-4402-86ED-E8B3DE6F7F6B} = {395E01BF-34A1-472E-9E13-4B5C72DEECB7}
 		{C98171DA-084F-466B-B04C-73D3275CAB01} = {395E01BF-34A1-472E-9E13-4B5C72DEECB7}
 		{EEDDB035-5E37-471C-B50D-23EA9B48C9F3} = {395E01BF-34A1-472E-9E13-4B5C72DEECB7}
+		{E41F1531-18C8-4122-B7BE-8A0FD92CEFC9} = {754FC069-D67B-A9D7-50A1-8D1CA196D8F1}
+		{214D6DFC-E9E7-46A4-85EA-C50B40C65E71} = {754FC069-D67B-A9D7-50A1-8D1CA196D8F1}
+		{EB234536-8CC1-4ECA-A4D7-8DEEAD7D4BFA} = {214D6DFC-E9E7-46A4-85EA-C50B40C65E71}
+		{99B844B0-CA69-40AE-BE4E-D6A42CEF41BD} = {E41F1531-18C8-4122-B7BE-8A0FD92CEFC9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97F4C5FD-EE42-4749-9BAD-73B506AE8C64}

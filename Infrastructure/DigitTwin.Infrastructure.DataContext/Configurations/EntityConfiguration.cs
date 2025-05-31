@@ -8,6 +8,11 @@ namespace DigitTwin.Infrastructure.DataContext
     public abstract class EntityConfiguration
     {
         /// <summary>
+        /// Название таблицы
+        /// </summary>
+        public abstract string TableName { get; }
+
+        /// <summary>
         /// Создание конфигураций
         /// </summary>
         /// <param name="modelBuilder"><see cref="ModelBuilder"/></param>
