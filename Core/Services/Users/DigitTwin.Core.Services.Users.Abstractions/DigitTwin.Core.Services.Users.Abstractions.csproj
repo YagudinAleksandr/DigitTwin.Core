@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DigitTwin.Core.Users.Abstractions\DigitTwin.Core.Users.Abstractions.csproj" />
-  </ItemGroup>
-
 </Project>
