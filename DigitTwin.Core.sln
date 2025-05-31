@@ -29,6 +29,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Lib.Contracts", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Lib.Geo.Abstractions", "..\DigitTwin.Lib\DigitTwin.Lib.Geo.Abstractions\DigitTwin.Lib.Geo.Abstractions.csproj", "{2ABB6FE0-878B-9C07-A4BC-A57AA9F7BB0D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{3EF1CA87-614B-4A15-B3B7-41E745CC1A41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Infrastructure.DataContext", "Infrastructure\DigitTwin.Infrastructure.DataContext\DigitTwin.Infrastructure.DataContext.csproj", "{273D526F-BF28-4755-85A2-FB8F0054D9A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,10 @@ Global
 		{2ABB6FE0-878B-9C07-A4BC-A57AA9F7BB0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2ABB6FE0-878B-9C07-A4BC-A57AA9F7BB0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2ABB6FE0-878B-9C07-A4BC-A57AA9F7BB0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{273D526F-BF28-4755-85A2-FB8F0054D9A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{273D526F-BF28-4755-85A2-FB8F0054D9A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{273D526F-BF28-4755-85A2-FB8F0054D9A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{273D526F-BF28-4755-85A2-FB8F0054D9A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +83,7 @@ Global
 		{334E7703-9EF6-4444-80BA-A14E1145D167} = {8F23A8DC-6C70-480D-9579-5B1CC93DF8FF}
 		{7ECC00CF-39B4-4481-EF74-55CC4837ABCE} = {8F23A8DC-6C70-480D-9579-5B1CC93DF8FF}
 		{2ABB6FE0-878B-9C07-A4BC-A57AA9F7BB0D} = {8F23A8DC-6C70-480D-9579-5B1CC93DF8FF}
+		{273D526F-BF28-4755-85A2-FB8F0054D9A5} = {3EF1CA87-614B-4A15-B3B7-41E745CC1A41}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97F4C5FD-EE42-4749-9BAD-73B506AE8C64}
