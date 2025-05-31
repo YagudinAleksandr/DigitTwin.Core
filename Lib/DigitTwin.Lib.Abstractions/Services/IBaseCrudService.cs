@@ -47,6 +47,6 @@ namespace DigitTwin.Lib.Abstractions.Services
         /// </summary>
         /// <param name="baseFilter">Фильтр</param>
         /// <returns>Коллекция сущностей</returns>
-        Task<IReadOnlyCollection<TEntityDto>> Get(IBaseFilter? baseFilter);
+        Task<IReadOnlyCollection<TEntityDto>> Get(IBaseFilter? baseFilter = null);
     }
 }
