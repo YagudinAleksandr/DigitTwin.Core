@@ -14,11 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Infrastructure\DigitTwin.Infrastructure.DatabaseContext\DigitTwin.Infrastructure.DatabaseContext.csproj" />
     <ProjectReference Include="..\..\..\..\Lib\DigitTwin.Lib.Abstractions\DigitTwin.Lib.Abstractions.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\Configurations\" />
-    <Folder Include="Data\Entities\" />
+    <ProjectReference Include="..\DigitTwin.Core.Services.Users.Abstractions\DigitTwin.Core.Services.Users.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using DigitTwin.Infrastructure.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 
-namespace DigitTwin.Core.Services.Users.Logic
+namespace DigitTwin.Core.Services.Users
 {
     /// <summary>
     /// Контекс пользователей
@@ -14,7 +14,7 @@ namespace DigitTwin.Core.Services.Users.Logic
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserConfiguration).Assembly);
         }
     }
 }
