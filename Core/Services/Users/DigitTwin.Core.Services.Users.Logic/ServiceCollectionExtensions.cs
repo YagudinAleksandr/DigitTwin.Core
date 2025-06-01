@@ -15,10 +15,8 @@ namespace DigitTwin.Core.Services.Users.Logic
         public static IServiceCollection AddUserServices(IServiceCollection services, IConfiguration configuration)
         {
             var settings = configuration.GetSection("DatabaseSettings");
-            var dbType = Enum.Parse<DatabaseType>(settings["Type"]!);
-            var connectionString = settings["ConnectionString"]!;
 
-            services.AddDatabaseContext<UsersDbContext>(dbType, connectionString);
+            services.AddDatabaseContext<UsersDbContext>(settings);
 
             return services;
         }
