@@ -4,16 +4,15 @@ namespace DigitTwin.Infrastructure.DataContext
 {
     /// <summary>
     /// Контекст подключения к PostgreSQL
+    /// <inheritdoc cref="AppDbContext"/>
     /// </summary>
-    public class PostgreDbContext : DigitTwingMainContext
+    public class PostgreDbContext : AppDbContext
     {
-        public PostgreDbContext(DbContextOptions<PostgreDbContext> options) : base(options)
+        public PostgreDbContext(
+        DbContextOptions<PostgreDbContext> options,
+        IEnumerable<IEntityTypeConfiguration> configurations)
+        : base(options, configurations)
         {
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
         }
     }
 }

@@ -4,16 +4,15 @@ namespace DigitTwin.Infrastructure.DataContext
 {
     /// <summary>
     /// Контекст подключения к MS SQL
+    /// <inheritdoc cref="AppDbContext"/>
     /// </summary>
-    public class MsSqlDbContext : DigitTwingMainContext
+    public class MsSqlDbContext : AppDbContext
     {
-        public MsSqlDbContext(DbContextOptions<MsSqlDbContext> options) : base(options)
+        public MsSqlDbContext(
+        DbContextOptions<MsSqlDbContext> options,
+        IEnumerable<IEntityTypeConfiguration> configurations)
+        : base(options, configurations)
         {
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
         }
     }
 }

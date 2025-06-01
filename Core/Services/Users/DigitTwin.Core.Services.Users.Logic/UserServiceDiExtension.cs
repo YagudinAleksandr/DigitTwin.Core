@@ -21,7 +21,7 @@ namespace DigitTwin.Core.Services.Users
         internal static IServiceCollection AddRepositories(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDatabaseContext(configuration, typeof(UserConfiguration).Assembly);
-            services.AddSingleton(typeof(IUserRepository<,>), typeof(UserRepository));
+            //services.AddSingleton(typeof(IUserRepository<,>), typeof(UserRepository));
 
             return services;
         }

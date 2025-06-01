@@ -1,120 +1,129 @@
-﻿# DigitTwin Data Context
-## Описание сборки
-Данная сборка предназначена для работы с контекстом баз данных. Поддерживаемые базы данных:
+﻿# Провайдер для работы с реляционными базами данных
+## Поддерживаемые провайдеры
 - PostgreSQL
 - MS SQL
 
-## Настройка данного контекста
-Настройка `appsttings.json`
-```json
+## Использование в проекте
+### Пример конфигурации пользователя (в проекте-потребителе)
+```csharp
+// UserConfiguration.cs
+using Core.Ef.Configuration;
+using DigitTwin.Lib.Misc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+
+namespace Your.Consumer.Project;
+
+public class UserConfiguration : IEntityTypeConfiguration
 {
-  "Database": {
-    "DbType": "NPG", // или "MSQ" для SQL Server
-    "ConnectionString": "Ваша строка подключения"
-  }
+    private readonly ILogger<UserConfiguration> _logger;
+
+    public UserConfiguration(ILogger<UserConfiguration> logger)
+    {
+        _logger = logger;
+    }
+
+    public void Configure(ModelBuilder modelBuilder)
+    {
+        try
+        {
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.ToTable("Users");
+                entity.HasKey(x => x.Id);
+                entity.Property(x => x.Email)
+                    .IsRequired()
+                    .HasMaxLength(DefaultDatabaseParams.MIDDLE_TEXT_LENGTH);
+                entity.Property(x => x.Name)
+                    .IsRequired(false)
+                    .HasMaxLength(DefaultDatabaseParams.MIDDLE_TEXT_LENGTH);
+                entity.Property(x => x.Status)
+                    .HasDefaultValue(UserStatusEnum.Inactive);
+                entity.Property(x => x.Type)
+                    .HasDefaultValue(UserTypeEnum.User);
+                entity.Property(x => x.Password)
+                    .IsRequired()
+                    .HasMaxLength(DefaultDatabaseParams.STANDART_TEXT_LENGTH);
+                entity.HasIndex(u => u.Email).IsUnique();
+            });
+            
+            _logger.LogInformation("User configuration applied successfully");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error applying user configuration");
+            throw;
+        }
+    }
 }
 ```
 
-## Использование в сборке
-### Регистрация сервиса (Program.cs)
+### Регистрация в Program.cs
 ```csharp
-ar builder = WebApplication.CreateBuilder(args);
+using Core.Ef.Extensions;
+using Your.Consumer.Project;
 
-// Регистрация EF Core с автоматической настройкой
-builder.Services.AddCoreEf(builder.Configuration);
-```
+var builder = WebApplication.CreateBuilder(args);
 
-### Применение миграций при запуске
-```csharp
+// Регистрация EF Core с динамическими конфигурациями
+builder.Services.AddCoreEf(
+    builder.Configuration,
+    configurationsAssembly: typeof(UserConfiguration).Assembly);
+
 var app = builder.Build();
 
+// Применение миграций при запуске
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    
-    try
-    {
-        dbContext.Database.Migrate();
-    }
-    catch (Exception ex)
-    {
-        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "Ошибка при применении миграций");
-    }
+    dbContext.Database.Migrate();
 }
 
 app.Run();
 ```
 
-## Определение моделей и конфигураций
-### 1. Создайте сущности в сборке
+### Пример использования в сервисе
 ```csharp
-// Entities/User.cs
-public class User
+public class UserService
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string Email { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-}
-```
-### 2. Создайте конфигурацию сущности
-```csharp
-// Configurations/UserConfiguration.cs
-public class UserConfiguration : EntityConfiguration
-{
-    public override void Configure(ModelBuilder modelBuilder)
+    private readonly AppDbContext _context;
+
+    public UserService(AppDbContext context)
     {
-        modelBuilder.Entity<User>(entity =>
-        {
-            entity.ToTable("users");
-            entity.HasKey(u => u.Id);
-            
-            entity.Property(u => u.Name)
-                .IsRequired()
-                .HasMaxLength(100);
-                
-            entity.Property(u => u.Email)
-                .IsRequired()
-                .HasMaxLength(255);
-                
-            entity.HasIndex(u => u.Email)
-                .IsUnique();
-                
-            entity.Property(u => u.CreatedAt)
-                .IsRequired()
-                .HasDefaultValueSql("CURRENT_TIMESTAMP");
-        });
+        _context = context;
+    }
+
+    public async Task<User> CreateUserAsync(string name, string email, string password)
+    {
+        var user = new User 
+        { 
+            Name = name, 
+            Email = email, 
+            Password = password 
+        };
+        
+        _context.Set<User>().Add(user);
+        await _context.SaveChangesAsync();
+        
+        return user;
     }
 }
 ```
 
-### 3. Зарегистрируйте сборку с конфигурациями
-```csharp
-builder.Services.AddCoreEf(
-    builder.Configuration,
-    configurationsAssembly: typeof(Program).Assembly);
-```
-
-## Работа с миграциями
 ### Создание миграций
-```bash
-# Для PostgreSQL
-dotnet ef migrations add InitialCreate --context PostgreDbContext --output-dir "Migrations/Postgre"
+- Для PostgreSQL
+```shel
+Add-Migration UserInitMigration `
+  -Context PostgreDbContext `
+  -OutputDirectory "Migrations\Postgre" `
+  -Project Core.Ef `
+  -StartupProject Your.Consumer.Project
 ```
-
-```bash
-# Для SQL Server
-dotnet ef migrations add InitialCreate --context MsSqlDbContext --output-dir "Migrations/MsSql"
-```
-
-### Применение миграций
-```bash
-# Для PostgreSQL
-dotnet ef database update --context PostgreDbContext
-```
-
-```bash
-# Для SQL Server
-dotnet ef database update --context MsSqlDbContext
+- Для MS SQL
+```shel
+Add-Migration UserInitMigration `
+  -Context MsSqlDbContext `
+  -OutputDirectory "Migrations\MsSql" `
+  -Project Core.Ef `
+  -StartupProject Your.Consumer.Project
 ```
