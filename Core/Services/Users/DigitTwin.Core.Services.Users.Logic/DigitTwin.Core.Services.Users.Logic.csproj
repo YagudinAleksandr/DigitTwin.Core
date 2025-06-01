@@ -7,14 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\Postgre\" />
-    <Folder Include="Services\" />
-    <Folder Include="Migrations\" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="9.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.5" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Infrastructure\DigitTwin.Infrastructure.DataContext\DigitTwin.Infrastructure.DataContext.csproj" />
-    <ProjectReference Include="..\DigitTwin.Core.Services.Users.Abstractions\DigitTwin.Core.Services.Users.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\..\Infrastructure\DigitTwin.Infrastructure.DatabaseContext\DigitTwin.Infrastructure.DatabaseContext.csproj" />
+    <ProjectReference Include="..\..\..\..\Lib\DigitTwin.Lib.Abstractions\DigitTwin.Lib.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Configurations\" />
+    <Folder Include="Data\Entities\" />
   </ItemGroup>
 
 </Project>
