@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DigitTwin.Infrastructure.DatabaseContext
@@ -15,13 +16,14 @@ namespace DigitTwin.Infrastructure.DatabaseContext
         /// <returns>DI контейнер</returns>
         public static IServiceCollection AddDatabaseContext<TContext>(
             this IServiceCollection services,
-            DatabaseType dbType,
-            string connectionString)
+            IConfigurationSection configurationSection)
             where TContext : ApplicationDbContext
         {
+            var configuration = CreateDatabaseConfig(configurationSection);
+
             services.AddDbContext<TContext>(options =>
             {
-                ConfigureOptions(options, dbType, connectionString);
+                ConfigureOptions(options, configuration.Type, configuration.ConnectionString);
             });
 
             return services;
@@ -50,6 +52,19 @@ namespace DigitTwin.Infrastructure.DatabaseContext
                 default:
                     throw new ArgumentException("Unsupported database type");
             }
+        }
+
+        /// <summary>
+        /// Конфигурация БД
+        /// </summary>
+        /// <param name="configurationSection">Секция</param>
+        /// <returns><see cref="DatabaseConfig"/></returns>
+        private static DatabaseConfig CreateDatabaseConfig(IConfigurationSection configurationSection)
+        {
+            var dbType = Enum.Parse<DatabaseType>(configurationSection["Type"]!);
+            var connectionString = configurationSection["ConnectionString"]!;
+
+            return new DatabaseConfig() { Type = dbType, ConnectionString = connectionString };
         }
     }
 }

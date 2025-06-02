@@ -55,6 +55,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Core.Services.Use
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Core.Services.Users.Api", "Core\Services\Users\DigitTwin.Core.Services.Users.Api\DigitTwin.Core.Services.Users.Api.csproj", "{CDF0FDEA-EF0F-4BDE-8A22-274F86D640D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Core.Services.Users.Abstractions", "Core\Services\Users\DigitTwin.Core.Services.Users.Abstractions\DigitTwin.Core.Services.Users.Abstractions.csproj", "{1152FDBE-39B4-4139-A948-7F80CD86C8DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{CDF0FDEA-EF0F-4BDE-8A22-274F86D640D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDF0FDEA-EF0F-4BDE-8A22-274F86D640D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDF0FDEA-EF0F-4BDE-8A22-274F86D640D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1152FDBE-39B4-4139-A948-7F80CD86C8DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1152FDBE-39B4-4139-A948-7F80CD86C8DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1152FDBE-39B4-4139-A948-7F80CD86C8DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1152FDBE-39B4-4139-A948-7F80CD86C8DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,6 +117,7 @@ Global
 		{D9F2B832-054A-43D4-951C-786A10FC5E62} = {3EF1CA87-614B-4A15-B3B7-41E745CC1A41}
 		{C62E8F22-DD1D-4317-BBC6-AC470E20D085} = {395E01BF-34A1-472E-9E13-4B5C72DEECB7}
 		{CDF0FDEA-EF0F-4BDE-8A22-274F86D640D0} = {395E01BF-34A1-472E-9E13-4B5C72DEECB7}
+		{1152FDBE-39B4-4139-A948-7F80CD86C8DF} = {395E01BF-34A1-472E-9E13-4B5C72DEECB7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97F4C5FD-EE42-4749-9BAD-73B506AE8C64}

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace DigitTwin.Core.Services.Users.Logic
+namespace DigitTwin.Core.Services.Users
 {
     /// <summary>
     /// Фабрика контекстов 
