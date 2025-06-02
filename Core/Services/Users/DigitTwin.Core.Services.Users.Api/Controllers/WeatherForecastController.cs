@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace DigitTwin.Application.Controllers
+namespace DigitTwin.Core.Services.Users.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]

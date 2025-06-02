@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DigitTwin.Lib.Abstractions
+namespace DigitTwin.Core.Services.Users
 {
     /// <summary>
     /// Типы пользователей
@@ -8,12 +8,12 @@ namespace DigitTwin.Lib.Abstractions
     public enum UserTypeEnum
     {
         [Display(Name = "Система")]
-        SYSTEM = 0,
+        System = 0,
 
         [Display(Name = "Пользователь")]
-        USER = 1,
+        User = 1,
 
         [Display(Name = "Администратор")]
-        ADMINISTRATOR = 2
+        Administrator = 2
     }
 }

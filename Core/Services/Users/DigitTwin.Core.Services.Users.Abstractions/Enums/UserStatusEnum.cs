@@ -1,19 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DigitTwin.Lib.Abstractions
+namespace DigitTwin.Core.Services.Users
 {
     /// <summary>
     /// Статусы пользователя
     /// </summary>
-    public enum UserTypeStatus
+    public enum UserStatusEnum
     {
         [Display(Name = "Не активен")]
-        NOT_ACTIVE = 0,
+        NotActive = 0,
 
         [Display(Name = "Активен")]
-        ACTIVE = 1,
+        Active = 1,
 
         [Display(Name = "Заблокирован")]
-        BLOCKED = 2
+        Blocked = 2
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Application", "DigitTwin.Application\DigitTwin.Application.csproj", "{D0677470-B981-4BFA-A307-00971F20677A}"
 EndProject
@@ -17,11 +17,45 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{8F23A8DC-6C7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Lib.Abstractions", "Lib\DigitTwin.Lib.Abstractions\DigitTwin.Lib.Abstractions.csproj", "{DB052480-B420-4095-860B-CB07B8CED880}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Users", "Users", "{8F0BF27F-FE9A-447D-AFAB-F89DBB547FAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Lib.Misc", "Lib\DigitTwin.Lib.Misc\DigitTwin.Lib.Misc.csproj", "{334E7703-9EF6-4444-80BA-A14E1145D167}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Core.Users.Abstractions", "Core\Users\DigitTwin.Core.Users.Abstractions\DigitTwin.Core.Users.Abstractions.csproj", "{98A8237D-58E7-48C5-9863-8D74AA2FD221}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Lib.Contracts", "..\DigitTwin.Lib\DigitTwin.Lib.Contracts\DigitTwin.Lib.Contracts.csproj", "{7ECC00CF-39B4-4481-EF74-55CC4837ABCE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Core.Users.Logic", "Core\Users\DigitTwin.Core.Users.Logic\DigitTwin.Core.Users.Logic.csproj", "{8DE93656-C7F1-BC7E-C2E0-0B4488093DE2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Lib.Geo.Abstractions", "..\DigitTwin.Lib\DigitTwin.Lib.Geo.Abstractions\DigitTwin.Lib.Geo.Abstractions.csproj", "{2ABB6FE0-878B-9C07-A4BC-A57AA9F7BB0D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{3EF1CA87-614B-4A15-B3B7-41E745CC1A41}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{27A124F8-AD5E-47FB-87B1-FD760D1D2991}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Users", "Users", "{395E01BF-34A1-472E-9E13-4B5C72DEECB7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "localDev", "localDev", "{E41F1531-18C8-4122-B7BE-8A0FD92CEFC9}"
+	ProjectSection(SolutionItems) = preProject
+		pipelines\localDev\compose.yaml = pipelines\localDev\compose.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testDev", "testDev", "{214D6DFC-E9E7-46A4-85EA-C50B40C65E71}"
+	ProjectSection(SolutionItems) = preProject
+		pipelines\testDev\compose.yaml = pipelines\testDev\compose.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "env", "env", "{EB234536-8CC1-4ECA-A4D7-8DEEAD7D4BFA}"
+	ProjectSection(SolutionItems) = preProject
+		pipelines\testDev\env\DigitTwinGateway.env = pipelines\testDev\env\DigitTwinGateway.env
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "env", "env", "{99B844B0-CA69-40AE-BE4E-D6A42CEF41BD}"
+	ProjectSection(SolutionItems) = preProject
+		pipelines\localDev\env\DigitTwinGateway.env = pipelines\localDev\env\DigitTwinGateway.env
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Infrastructure.DatabaseContext", "Infrastructure\DigitTwin.Infrastructure.DatabaseContext\DigitTwin.Infrastructure.DatabaseContext.csproj", "{D9F2B832-054A-43D4-951C-786A10FC5E62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Core.Services.Users.Logic", "Core\Services\Users\DigitTwin.Core.Services.Users.Logic\DigitTwin.Core.Services.Users.Logic.csproj", "{C62E8F22-DD1D-4317-BBC6-AC470E20D085}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Core.Services.Users.Api", "Core\Services\Users\DigitTwin.Core.Services.Users.Api\DigitTwin.Core.Services.Users.Api.csproj", "{CDF0FDEA-EF0F-4BDE-8A22-274F86D640D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Core.Services.Users.Abstractions", "Core\Services\Users\DigitTwin.Core.Services.Users.Abstractions\DigitTwin.Core.Services.Users.Abstractions.csproj", "{1152FDBE-39B4-4139-A948-7F80CD86C8DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,23 +71,53 @@ Global
 		{DB052480-B420-4095-860B-CB07B8CED880}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB052480-B420-4095-860B-CB07B8CED880}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB052480-B420-4095-860B-CB07B8CED880}.Release|Any CPU.Build.0 = Release|Any CPU
-		{98A8237D-58E7-48C5-9863-8D74AA2FD221}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{98A8237D-58E7-48C5-9863-8D74AA2FD221}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{98A8237D-58E7-48C5-9863-8D74AA2FD221}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{98A8237D-58E7-48C5-9863-8D74AA2FD221}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8DE93656-C7F1-BC7E-C2E0-0B4488093DE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8DE93656-C7F1-BC7E-C2E0-0B4488093DE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8DE93656-C7F1-BC7E-C2E0-0B4488093DE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8DE93656-C7F1-BC7E-C2E0-0B4488093DE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{334E7703-9EF6-4444-80BA-A14E1145D167}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{334E7703-9EF6-4444-80BA-A14E1145D167}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{334E7703-9EF6-4444-80BA-A14E1145D167}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{334E7703-9EF6-4444-80BA-A14E1145D167}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ECC00CF-39B4-4481-EF74-55CC4837ABCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ECC00CF-39B4-4481-EF74-55CC4837ABCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ECC00CF-39B4-4481-EF74-55CC4837ABCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ECC00CF-39B4-4481-EF74-55CC4837ABCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ABB6FE0-878B-9C07-A4BC-A57AA9F7BB0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ABB6FE0-878B-9C07-A4BC-A57AA9F7BB0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ABB6FE0-878B-9C07-A4BC-A57AA9F7BB0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ABB6FE0-878B-9C07-A4BC-A57AA9F7BB0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9F2B832-054A-43D4-951C-786A10FC5E62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9F2B832-054A-43D4-951C-786A10FC5E62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9F2B832-054A-43D4-951C-786A10FC5E62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9F2B832-054A-43D4-951C-786A10FC5E62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C62E8F22-DD1D-4317-BBC6-AC470E20D085}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C62E8F22-DD1D-4317-BBC6-AC470E20D085}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C62E8F22-DD1D-4317-BBC6-AC470E20D085}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C62E8F22-DD1D-4317-BBC6-AC470E20D085}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDF0FDEA-EF0F-4BDE-8A22-274F86D640D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDF0FDEA-EF0F-4BDE-8A22-274F86D640D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDF0FDEA-EF0F-4BDE-8A22-274F86D640D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDF0FDEA-EF0F-4BDE-8A22-274F86D640D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1152FDBE-39B4-4139-A948-7F80CD86C8DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1152FDBE-39B4-4139-A948-7F80CD86C8DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1152FDBE-39B4-4139-A948-7F80CD86C8DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1152FDBE-39B4-4139-A948-7F80CD86C8DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DB052480-B420-4095-860B-CB07B8CED880} = {8F23A8DC-6C70-480D-9579-5B1CC93DF8FF}
-		{8F0BF27F-FE9A-447D-AFAB-F89DBB547FAF} = {36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}
-		{98A8237D-58E7-48C5-9863-8D74AA2FD221} = {8F0BF27F-FE9A-447D-AFAB-F89DBB547FAF}
-		{8DE93656-C7F1-BC7E-C2E0-0B4488093DE2} = {8F0BF27F-FE9A-447D-AFAB-F89DBB547FAF}
+		{334E7703-9EF6-4444-80BA-A14E1145D167} = {8F23A8DC-6C70-480D-9579-5B1CC93DF8FF}
+		{7ECC00CF-39B4-4481-EF74-55CC4837ABCE} = {8F23A8DC-6C70-480D-9579-5B1CC93DF8FF}
+		{2ABB6FE0-878B-9C07-A4BC-A57AA9F7BB0D} = {8F23A8DC-6C70-480D-9579-5B1CC93DF8FF}
+		{27A124F8-AD5E-47FB-87B1-FD760D1D2991} = {36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}
+		{395E01BF-34A1-472E-9E13-4B5C72DEECB7} = {27A124F8-AD5E-47FB-87B1-FD760D1D2991}
+		{E41F1531-18C8-4122-B7BE-8A0FD92CEFC9} = {754FC069-D67B-A9D7-50A1-8D1CA196D8F1}
+		{214D6DFC-E9E7-46A4-85EA-C50B40C65E71} = {754FC069-D67B-A9D7-50A1-8D1CA196D8F1}
+		{EB234536-8CC1-4ECA-A4D7-8DEEAD7D4BFA} = {214D6DFC-E9E7-46A4-85EA-C50B40C65E71}
+		{99B844B0-CA69-40AE-BE4E-D6A42CEF41BD} = {E41F1531-18C8-4122-B7BE-8A0FD92CEFC9}
+		{D9F2B832-054A-43D4-951C-786A10FC5E62} = {3EF1CA87-614B-4A15-B3B7-41E745CC1A41}
+		{C62E8F22-DD1D-4317-BBC6-AC470E20D085} = {395E01BF-34A1-472E-9E13-4B5C72DEECB7}
+		{CDF0FDEA-EF0F-4BDE-8A22-274F86D640D0} = {395E01BF-34A1-472E-9E13-4B5C72DEECB7}
+		{1152FDBE-39B4-4139-A948-7F80CD86C8DF} = {395E01BF-34A1-472E-9E13-4B5C72DEECB7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97F4C5FD-EE42-4749-9BAD-73B506AE8C64}
