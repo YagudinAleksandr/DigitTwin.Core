@@ -9,10 +9,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DigitTwin.Core.Services.Users.Logic.Data.Migrations.Postgre
+namespace DigitTwin.Core.Services.Users.Logic.Data.Migrations
 {
     [DbContext(typeof(UsersDbContext))]
-    [Migration("20250601130722_UserInitMigration")]
+    [Migration("20250601132101_UserInitMigration")]
     partial class UserInitMigration
     {
         /// <inheritdoc />

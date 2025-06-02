@@ -15,6 +15,7 @@ namespace DigitTwin.Core.Services.Users
         public static IServiceCollection AddUserServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddDB(configuration);
+            services.AddRepositories();
             return services;
         }
 
@@ -30,6 +31,17 @@ namespace DigitTwin.Core.Services.Users
             services.AddDatabaseContext<UsersDbContext>(settings);
 
             return services;
+        }
+
+        /// <summary>
+        /// Добавление репозиториев
+        /// </summary>
+        /// <param name="services">DI контейнер</param>
+        /// <returns>DI контейнер</returns>
+        private static IServiceCollection AddRepositories(this IServiceCollection services)
+        {
+            return services
+                .AddSingleton(typeof(IUserRepository<,>), typeof(UserRepository));
         }
     }
 }

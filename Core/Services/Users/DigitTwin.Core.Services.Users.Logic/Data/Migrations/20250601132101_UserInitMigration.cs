@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace DigitTwin.Core.Services.Users.Logic.Data.Migrations.Postgre
+namespace DigitTwin.Core.Services.Users.Logic.Data.Migrations
 {
     /// <inheritdoc />
     public partial class UserInitMigration : Migration
