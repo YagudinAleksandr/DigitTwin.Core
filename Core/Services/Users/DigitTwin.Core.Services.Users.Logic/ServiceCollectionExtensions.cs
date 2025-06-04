@@ -1,4 +1,5 @@
-﻿using DigitTwin.Infrastructure.DatabaseContext;
+﻿using DigitTwin.Core.ActionService;
+using DigitTwin.Infrastructure.DatabaseContext;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,6 +15,7 @@ namespace DigitTwin.Core.Services.Users
         /// <returns>DI контейнер</returns>
         public static IServiceCollection AddUserServices(IServiceCollection services, IConfiguration configuration)
         {
+            services.AddActionService(configuration);
             services.AddDB(configuration);
             services.AddRepositories();
             return services;
