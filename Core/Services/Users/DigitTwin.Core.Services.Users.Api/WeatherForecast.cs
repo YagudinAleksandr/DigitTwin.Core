@@ -1,4 +1,4 @@
-namespace DigitTwin.Application
+namespace DigitTwin.Core.Services.Users.Api
 {
     public class WeatherForecast
     {

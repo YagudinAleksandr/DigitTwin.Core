@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\DigitTwin.Lib\DigitTwin.Lib.Contracts\DigitTwin.Lib.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\DigitTwin.Lib\DigitTwin.Lib.EventBroker\DigitTwin.Lib.EventBroker.csproj" />
+    <ProjectReference Include="..\..\..\DigitTwin.Lib\DigitTwin.Lib.Geo.Abstractions\DigitTwin.Lib.Geo.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\DigitTwin.Lib\DigitTwin.Lib.Validator\DigitTwin.Lib.Validator.csproj" />
+    <ProjectReference Include="..\DigitTwin.Lib.Abstractions\DigitTwin.Lib.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>
