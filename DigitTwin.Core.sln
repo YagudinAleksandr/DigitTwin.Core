@@ -30,24 +30,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Users", "Users", "{395E01BF-34A1-472E-9E13-4B5C72DEECB7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "localDev", "localDev", "{E41F1531-18C8-4122-B7BE-8A0FD92CEFC9}"
-	ProjectSection(SolutionItems) = preProject
-		pipelines\localDev\compose.yaml = pipelines\localDev\compose.yaml
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testDev", "testDev", "{214D6DFC-E9E7-46A4-85EA-C50B40C65E71}"
-	ProjectSection(SolutionItems) = preProject
-		pipelines\testDev\compose.yaml = pipelines\testDev\compose.yaml
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "env", "env", "{EB234536-8CC1-4ECA-A4D7-8DEEAD7D4BFA}"
-	ProjectSection(SolutionItems) = preProject
-		pipelines\testDev\env\DigitTwinGateway.env = pipelines\testDev\env\DigitTwinGateway.env
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "env", "env", "{99B844B0-CA69-40AE-BE4E-D6A42CEF41BD}"
-	ProjectSection(SolutionItems) = preProject
-		pipelines\localDev\env\DigitTwinGateway.env = pipelines\localDev\env\DigitTwinGateway.env
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Infrastructure.DatabaseContext", "Infrastructure\DigitTwin.Infrastructure.DatabaseContext\DigitTwin.Infrastructure.DatabaseContext.csproj", "{D9F2B832-054A-43D4-951C-786A10FC5E62}"
 EndProject
