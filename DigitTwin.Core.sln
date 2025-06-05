@@ -53,6 +53,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Lib.EventBroker",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Core.ActionService", "Core\DigitTwin.Core.ActionService\DigitTwin.Core.ActionService.csproj", "{6BE99C76-D83B-41C0-863B-1E87F45FC06A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Infrastructure.TestContainers", "Infrastructure\DigitTwin.Infrastructure.TestContainers\DigitTwin.Infrastructure.TestContainers.csproj", "{0D8F7D67-DA9F-4538-A607-221D8B08A762}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,10 @@ Global
 		{6BE99C76-D83B-41C0-863B-1E87F45FC06A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BE99C76-D83B-41C0-863B-1E87F45FC06A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BE99C76-D83B-41C0-863B-1E87F45FC06A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D8F7D67-DA9F-4538-A607-221D8B08A762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D8F7D67-DA9F-4538-A607-221D8B08A762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D8F7D67-DA9F-4538-A607-221D8B08A762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D8F7D67-DA9F-4538-A607-221D8B08A762}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -134,6 +140,7 @@ Global
 		{778F406F-9630-42F3-A63F-3E225FC6FADE} = {3EF1CA87-614B-4A15-B3B7-41E745CC1A41}
 		{AE495C39-D3BA-1BF8-4F1A-AC310520BE42} = {8F23A8DC-6C70-480D-9579-5B1CC93DF8FF}
 		{6BE99C76-D83B-41C0-863B-1E87F45FC06A} = {27A124F8-AD5E-47FB-87B1-FD760D1D2991}
+		{0D8F7D67-DA9F-4538-A607-221D8B08A762} = {3EF1CA87-614B-4A15-B3B7-41E745CC1A41}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97F4C5FD-EE42-4749-9BAD-73B506AE8C64}
