@@ -1,4 +1,5 @@
-﻿using DigitTwin.Infrastructure.LoggerSeq;
+﻿using DigitTwin.Core.ActionService;
+using DigitTwin.Infrastructure.LoggerSeq;
 using DigitTwin.Lib.Contracts;
 using DigitTwin.Lib.Contracts.User;
 
@@ -14,17 +15,26 @@ namespace DigitTwin.Core.Services.Users.Logic.Services
         /// <inheritdoc cref="ILoggerService"/>
         private readonly ILoggerService _loggerService;
 
+        /// <inheritdoc cref="IActionResponse"/>
+        private readonly IActionResponse _actionResponse;
+
         public string ServiceName => nameof(UserService);
-        public UserService(IUserRepository<Guid, User> userRepository, ILoggerService loggerService)
+        public UserService(IUserRepository<Guid, User> userRepository, ILoggerService loggerService, IActionResponse actionResponse)
         {
             _userRepository = userRepository;
             _loggerService = loggerService;
+            _actionResponse = actionResponse;
         }
         #endregion
 
-        public Task<BaseApiResponse<UserDto>> Create(UserCreateDto user)
+        public async Task<BaseApiResponse<UserDto>> Create(UserCreateDto user)
         {
-            throw new NotImplementedException();
+            var validationResult = user.Run();
+
+            if (!validationResult.IsValid)
+            {
+                
+            }
         }
 
         public Task<BaseApiResponse<bool>> Delete(Guid id)

@@ -19,7 +19,14 @@ namespace DigitTwin.Core.ActionService
 
         public BaseApiResponse<TModel> GetNotFoundResponse<TModel>(TModel model, string error)
         {
-            throw new NotImplementedException();
+            var response = new BaseApiResponse<TModel>()
+            {
+                StatusCode = (int)StatusCodesEnum.NotFound
+            };
+
+            response.Errors.Add("NotFound", error);
+
+            return response;
         }
 
         public BaseApiResponse<TModel> GetOkResponse<TModel>(TModel model)
