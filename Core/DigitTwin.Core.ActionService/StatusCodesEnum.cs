@@ -8,6 +8,8 @@
         Success = 200,
         Created = 201,
         NoContent = 204,
+        PartialContent = 206,
+        Redirect = 302,
         BadRequest = 400,
         NotFound = 404,
         NotAuthorized = 401,
