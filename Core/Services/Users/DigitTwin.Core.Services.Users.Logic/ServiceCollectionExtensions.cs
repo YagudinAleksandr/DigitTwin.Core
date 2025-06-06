@@ -13,11 +13,12 @@ namespace DigitTwin.Core.Services.Users
         /// <param name="services">DI контейнер</param>
         /// <param name="configuration">Конфигурация</param>
         /// <returns>DI контейнер</returns>
-        public static IServiceCollection AddUserServices(IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddUserService(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddActionService(configuration);
             services.AddDB(configuration);
             services.AddRepositories();
+            services.AddServices();
             return services;
         }
 
@@ -41,6 +42,17 @@ namespace DigitTwin.Core.Services.Users
         /// <param name="services">DI контейнер</param>
         /// <returns>DI контейнер</returns>
         private static IServiceCollection AddRepositories(this IServiceCollection services)
+        {
+            return services
+                .AddSingleton(typeof(IUserRepository<,>), typeof(UserRepository));
+        }
+
+        /// <summary>
+        /// Добавление сервисов
+        /// </summary>
+        /// <param name="services">DI контейнер</param>
+        /// <returns>DI контейнер</returns>
+        private static IServiceCollection AddServices(this IServiceCollection services) 
         {
             return services
                 .AddSingleton(typeof(IUserRepository<,>), typeof(UserRepository));

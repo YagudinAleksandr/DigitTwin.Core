@@ -3,11 +3,17 @@ using DigitTwin.Lib.Validator;
 
 namespace DigitTwin.Core.Services.Users
 {
-    public static class UserRequestValidator
+    /// <summary>
+    /// Валидатор обновления пользователя
+    /// </summary>
+    public static class UserUpdateRequestValidator
     {
-        public static ValidationResult Run(this UserCreateDto creationUser)
+        public static ValidationResult Run(this UserDto creationUser)
         {
-            var validator = new Validator<UserCreateDto>();
+            var validator = new Validator<UserDto>();
+
+            validator.RuleFor(u => u.Id)
+                .Must(l => !string.IsNullOrEmpty(l.ToString()), "ID не может быть Null");
 
             validator.RuleFor(u => u.Email)
                 .Must(email => !string.IsNullOrEmpty(email), "E-mail должен быть указан")

@@ -2,6 +2,7 @@
 
 namespace DigitTwin.Core.Services.Users
 {
+    // TODO: Переделать в UserRepository<TKey, TEntity> (Author: Alexandr Yagudin)
     internal class UserRepository : IUserRepository<Guid, User>
     {
         #region CTOR

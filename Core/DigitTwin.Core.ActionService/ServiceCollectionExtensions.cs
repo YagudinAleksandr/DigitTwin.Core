@@ -16,7 +16,7 @@ namespace DigitTwin.Core.ActionService
         public static IServiceCollection AddActionService(this IServiceCollection services, IConfiguration configuration) 
         {
             services.AddMiscServices(configuration);
-            services.AddLogger(configuration);
+            //services.AddLogger(configuration);
 
             services.AddSingleton<IActionResponse, ActionResponse>();
 
