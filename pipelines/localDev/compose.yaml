@@ -6,7 +6,7 @@ services:
     image: datalust/seq
     ports:
       - "5342:80"
-      - "5341:80/udp"
+      - "5341:5341/udp"
     env_file:
       - env/Seq.env
 
