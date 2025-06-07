@@ -10,11 +10,11 @@ namespace DigitTwin.Core.Services.Users
     internal class UserService : IUserService
     {
         #region CTOR
-        /// <inheritdoc cref="IUserRepository{TKey, TEntity}"/>
-        private readonly IUserRepository<Guid, User> _userRepository;
+        /// <inheritdoc cref="IRepository{TKey, TEntity}"/>
+        private readonly IRepository<Guid, User> _userRepository;
 
         /// <inheritdoc cref="ILoggerService"/>
-        private readonly ILoggerService _loggerService;
+        //private readonly ILoggerService _loggerService;
 
         /// <inheritdoc cref="IActionResponse"/>
         private readonly IActionResponse _actionResponse;
@@ -23,13 +23,13 @@ namespace DigitTwin.Core.Services.Users
         private readonly IMapper _mapper;
 
         public string ServiceName => nameof(UserService);
-        public UserService(IUserRepository<Guid, User> userRepository,
-            ILoggerService loggerService,
+        public UserService(IRepository<Guid, User> userRepository,
+            //ILoggerService loggerService,
             IActionResponse actionResponse,
             IMapper mapper)
         {
             _userRepository = userRepository;
-            _loggerService = loggerService;
+            //_loggerService = loggerService;
             _actionResponse = actionResponse;
             _mapper = mapper;
         }
@@ -118,6 +118,16 @@ namespace DigitTwin.Core.Services.Users
 
         public Task<IBaseApiResponse> GetByFilter(GetSingleUserFilter<UserDto> filter)
         {
+            //var filterResponse = await _userRepository.GetSingleByFilter(filter);
+
+            //if (filterResponse == null)
+            //{
+            //    return _actionResponse.NotFoundResponse("Пользователь не найден");
+            //}
+
+            //var dto = _mapper.Map<UserDto>(filterResponse);
+
+            //return _actionResponse.OkResponse(dto);
             throw new NotImplementedException();
         }
 

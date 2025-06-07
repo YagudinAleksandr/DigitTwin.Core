@@ -1,24 +1,25 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DigitTwin.Lib.Abstractions;
+using Microsoft.EntityFrameworkCore;
 
 namespace DigitTwin.Core.Services.Users
 {
-    // TODO: Переделать в UserRepository<TKey, TEntity> (Author: Alexandr Yagudin)
-    internal class UserRepository : IUserRepository<Guid, User>
+    
+    internal class Repository<TKey, TEntity> : IRepository<TKey, TEntity> where TEntity : class
     {
         #region CTOR
         /// <inheritdoc cref="UsersDbContext"/>
         private readonly UsersDbContext _context;
 
         /// <inheritdoc cref="DbSet{TEntity}"/>
-        private readonly DbSet<User> _users;
+        private readonly DbSet<TEntity> _table;
 
-        public UserRepository(UsersDbContext context)
+        public Repository(UsersDbContext context)
         {
             _context = context;
-            _users = _context.Set<User>();
+            _table = _context.Set<TEntity>();
         }
         #endregion
-        public async Task<User?> Create(User entity)
+        public async Task<TEntity?> Create(TEntity entity)
         {
             await _context.AddAsync(entity);
             await _context.SaveChangesAsync();
@@ -26,15 +27,15 @@ namespace DigitTwin.Core.Services.Users
             return entity;
         }
 
-        public async Task Delete(User entity)
+        public async Task Delete(TEntity entity)
         {
-            _users.Remove(entity);
+            _table.Remove(entity);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IReadOnlyCollection<User>> GetAllByFilter(GetSingleUserFilter<User> filter)
+        public async Task<IReadOnlyCollection<TEntity>> GetAllByFilter(IBaseFilter<TEntity> filter)
         {
-            IQueryable<User> query = _users.AsQueryable();
+            IQueryable<TEntity> query = _table.AsQueryable();
 
             // Применяем условия WHERE
             if (filter.Criteria != null)
@@ -53,14 +54,14 @@ namespace DigitTwin.Core.Services.Users
             return await query.ToListAsync();
         }
 
-        public async Task<User?> GetById(Guid key)
+        public async Task<TEntity?> GetById(TKey key)
         {
-            return await _users.FindAsync(key);
+            return await _table.FindAsync(key);
         }
 
-        public async Task<User?> GetSingleByFilter(GetSingleUserFilter<User> filter)
+        public async Task<TEntity?> GetSingleByFilter(IBaseFilter<TEntity> filter)
         {
-            IQueryable<User> query = _users.AsQueryable();
+            IQueryable<TEntity> query = _table.AsQueryable();
 
             // Применяем условия WHERE
             if (filter.Criteria != null)
@@ -79,9 +80,9 @@ namespace DigitTwin.Core.Services.Users
             return await query.FirstOrDefaultAsync();
         }
 
-        public async Task<User?> Update(User entity)
+        public async Task<TEntity?> Update(TEntity entity)
         {
-            _users.Update(entity);
+            _table.Update(entity);
             await _context.SaveChangesAsync();
             return entity;
         }

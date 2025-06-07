@@ -11,8 +11,6 @@ namespace DigitTwin.Infrastructure.DatabaseContext
         /// </summary>
         /// <typeparam name="TContext">Контекст</typeparam>
         /// <param name="services">DI контейнер</param>
-        /// <param name="dbType">Тип БД</param>
-        /// <param name="connectionString">Строка подключения</param>
         /// <returns>DI контейнер</returns>
         public static IServiceCollection AddDatabaseContext<TContext>(
             this IServiceCollection services,

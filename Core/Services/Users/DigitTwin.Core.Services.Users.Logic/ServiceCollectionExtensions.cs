@@ -17,6 +17,7 @@ namespace DigitTwin.Core.Services.Users
         {
             services.AddActionService(configuration);
             services.AddDB(configuration);
+            services.AddAutoMapper(typeof(UserDtoMapper).Assembly);
             services.AddRepositories();
             services.AddServices();
             return services;
@@ -44,7 +45,7 @@ namespace DigitTwin.Core.Services.Users
         private static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             return services
-                .AddSingleton(typeof(IUserRepository<,>), typeof(UserRepository));
+                .AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
         }
 
         /// <summary>
@@ -55,7 +56,7 @@ namespace DigitTwin.Core.Services.Users
         private static IServiceCollection AddServices(this IServiceCollection services) 
         {
             return services
-                .AddSingleton(typeof(IUserRepository<,>), typeof(UserRepository));
+                .AddSingleton(typeof(IUserService), typeof(UserService));
         }
     }
 }

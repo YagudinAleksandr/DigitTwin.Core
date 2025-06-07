@@ -7,20 +7,20 @@ namespace DigitTwin.Core.Services.Users
     /// </summary>
     /// <typeparam name="TKey">Тип ИД</typeparam>
     /// <typeparam name="TEntity">Сущность</typeparam>
-    public interface IUserRepository<TKey, TEntity> : IBaseService<TKey, TEntity> where TEntity : IEntity<TKey>
+    public interface IRepository<TKey, TEntity> : IBaseRepository<TKey, TEntity> where TEntity : class
     {
         /// <summary>
         /// Получение одной записи по фильтру
         /// </summary>
         /// <param name="filter">Фильтр</param>
         /// <returns>Сущность</returns>
-        Task<TEntity?> GetSingleByFilter(GetSingleUserFilter<TEntity> filter);
+        Task<TEntity?> GetSingleByFilter(IBaseFilter<TEntity> filter);
 
         /// <summary>
         /// Получение списка сущностей по фильтру
         /// </summary>
         /// <param name="filter">Фильтр</param>
         /// <returns>Список сущностей</returns>
-        Task<IReadOnlyCollection<TEntity>> GetAllByFilter(GetSingleUserFilter<TEntity> filter);
+        Task<IReadOnlyCollection<TEntity>> GetAllByFilter(IBaseFilter<TEntity> filter);
     }
 }
