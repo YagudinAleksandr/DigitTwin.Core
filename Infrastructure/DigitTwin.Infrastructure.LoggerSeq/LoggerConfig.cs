@@ -13,6 +13,11 @@
         /// <summary>
         /// Минимальный уровень логирования
         /// </summary>
-        public string MinLevel { get; set; } = "Debug";
+        public string MinLevel { get; set; } = "Information";
+
+        /// <summary>
+        /// Название приложения
+        /// </summary>
+        public string ApplicationName { get; set; } = null!;
     }
 }
