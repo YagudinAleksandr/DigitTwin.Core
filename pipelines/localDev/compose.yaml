@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+
+  seq:
+    image: datalust/seq
+    ports:
+      - "5342:80"
+      - "5341:80/udp"
+    env_file:
+      - env/Seq.env
+
+  redis:
+    image: redis:7.0-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server
+    expose:
+      - 6379
+
+  postgres:
+    image: postgis/postgis:13-3.3
+    ports:
+      - 5444:5432
+    env_file:
+      - env/PostgreSQL.env
+    healthcheck:
+      test: pg_isready -U postgres
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  kafka:
+    image: &kafka-image "bitnami/kafka:3.5"
+    healthcheck:
+      test:
+        ["CMD", "kafka-topics.sh", "--bootstrap-server=kafka:9092", "--list"]
+      start_period: 15s
+      interval: 10s
+    ports:
+      - "9092:9092"
+    env_file:
+      - env/Kafka.env
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.6
+    restart: always
+    depends_on:
+      kafka:
+        condition: service_healthy
+    # warning:
+    #    volumes:
+    #      - ./config/clickhouse_config.xml:/etc/clickhouse-server/config.d/local_config.xml
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:8123/ping || exit 1
+      interval: 7s
+      timeout: 7s
+      retries: 5
+    env_file:
+      - env/ClickHouse.env

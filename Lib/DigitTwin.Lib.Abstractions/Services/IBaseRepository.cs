@@ -5,7 +5,7 @@
     /// </summary>
     /// <typeparam name="TKey">Тип ключа</typeparam>
     /// <typeparam name="TEntity">Тип сущности</typeparam>
-    public interface IBaseService<TKey, TEntity> where TEntity : IEntity<TKey>
+    public interface IBaseRepository<TKey, TEntity> where TEntity : class
     {
         /// <summary>
         /// Создание сущности
