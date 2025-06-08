@@ -19,7 +19,9 @@ namespace DigitTwin.Infrastructure.LoggerSeq
             var loggerConfiguration = new LoggerConfig()
             {
                 Url = configuration["LoggerSeq:Url"],
-                MinLevel = configuration["LoggerSeq:MinLevel"]
+                MinLevel = configuration["LoggerSeq:MinLevel"],
+                ApplicationName = configuration["LoggerSeq:ApplicationName"]
+                
             };
 
             if (string.IsNullOrEmpty(loggerConfiguration.Url)) 
@@ -29,7 +31,7 @@ namespace DigitTwin.Infrastructure.LoggerSeq
 
             var level = ParseLogLevel(loggerConfiguration.MinLevel!);
 
-            services.AddSingleton<ILoggerService>(_ => new LoggerService(loggerConfiguration.Url, level));
+            services.AddSingleton<ILoggerService>(_ => new LoggerService(loggerConfiguration.Url, level, loggerConfiguration.ApplicationName));
 
             return services;
         }
