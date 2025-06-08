@@ -31,7 +31,42 @@ namespace DigitTwin.Core.Users
             try
             {
                 await context.Database.MigrateAsync();
+
                 _logger.LogInformation(ServiceName, "Database updated");
+
+                await SeedingDefaultData();
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ServiceName, "Can not create database with error.", ex);
+            }
+        }
+
+        private async Task SeedingDefaultData()
+        {
+            using var context = _dbContextFactory.CreateDbContext();
+            DbSet<User> users = context.Set<User>();
+
+            try
+            {
+                if(await users.AnyAsync())
+                {
+                    return;
+                }
+
+                var defaultUser = new User
+                {
+                    Name = "Администратор",
+                    Type = UserTypeEnum.Administrator,
+                    Status = UserStatusEnum.Active,
+                    Email = "test@test.ru",
+                    Password = ""
+                };
+
+                await context.AddAsync(defaultUser);
+                await context.SaveChangesAsync();
+
+                _logger.LogInformation(ServiceName, "Added default user");
             }
             catch(Exception ex)
             {
