@@ -62,6 +62,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Core.Users.Logic"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Core.Users.Api", "Core\Users\DigitTwin.Core.Users.Api\DigitTwin.Core.Users.Api.csproj", "{083DC20E-3468-42A3-97E8-F155B989DA85}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Lib.PipelineBuilder", "..\DigitTwin.Lib\DigitTwin.Lib.PipelineBuilder\DigitTwin.Lib.PipelineBuilder.csproj", "{9EF21C8D-3319-3C4C-5A26-8687633698D3}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Core.ActionService", "Core\DigitTwin.Core.ActionService\DigitTwin.Core.ActionService.csproj", "{FD35BCD4-9ECC-4DB6-A994-48038C272E45}"
 EndProject
 Global
