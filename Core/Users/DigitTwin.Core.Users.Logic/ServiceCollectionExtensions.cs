@@ -59,6 +59,11 @@ namespace DigitTwin.Core.Users.Logic
             return services;
         }
 
+        /// <summary>
+        /// Добавление сервисов
+        /// </summary>
+        /// <param name="services">DI контейнер</param>
+        /// <returns>DI контейнер</returns>
         private static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddSingleton<IUserService, UserService>();
