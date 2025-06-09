@@ -62,6 +62,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Core.Users.Logic"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Core.Users.Api", "Core\Users\DigitTwin.Core.Users.Api\DigitTwin.Core.Users.Api.csproj", "{083DC20E-3468-42A3-97E8-F155B989DA85}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitTwin.Lib.PipelineBuilder", "..\DigitTwin.Lib\DigitTwin.Lib.PipelineBuilder\DigitTwin.Lib.PipelineBuilder.csproj", "{9EF21C8D-3319-3C4C-5A26-8687633698D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -120,6 +122,10 @@ Global
 		{083DC20E-3468-42A3-97E8-F155B989DA85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{083DC20E-3468-42A3-97E8-F155B989DA85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{083DC20E-3468-42A3-97E8-F155B989DA85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EF21C8D-3319-3C4C-5A26-8687633698D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EF21C8D-3319-3C4C-5A26-8687633698D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EF21C8D-3319-3C4C-5A26-8687633698D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EF21C8D-3319-3C4C-5A26-8687633698D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -142,6 +148,7 @@ Global
 		{4B1088DB-C294-49DF-A455-FD397E2F5677} = {DCDBBE44-1D62-40FA-9816-3468CAD72AF9}
 		{7851E526-11C8-4F9F-99DA-F645DD4A8D74} = {DCDBBE44-1D62-40FA-9816-3468CAD72AF9}
 		{083DC20E-3468-42A3-97E8-F155B989DA85} = {DCDBBE44-1D62-40FA-9816-3468CAD72AF9}
+		{9EF21C8D-3319-3C4C-5A26-8687633698D3} = {8F23A8DC-6C70-480D-9579-5B1CC93DF8FF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97F4C5FD-EE42-4749-9BAD-73B506AE8C64}
