@@ -1,4 +1,6 @@
-﻿using DigitTwin.Infrastructure.DataContext;
+﻿using DigitTwin.Core.ActionService;
+using DigitTwin.Core.Users.Logic.Data;
+using DigitTwin.Infrastructure.DataContext;
 using DigitTwin.Infrastructure.LoggerSeq;
 using DigitTwin.Lib.Abstractions.Services;
 using Microsoft.Extensions.Configuration;
@@ -17,10 +19,14 @@ namespace DigitTwin.Core.Users.Logic
         /// <param name="services">DI контейнер</param>
         /// <param name="configuration">Конфигурация</param>
         /// <returns>DI контейнер</returns>
-        public static IServiceCollection AddUserServiceLogic(this IServiceCollection services, IConfiguration configuration) 
+        public static IServiceCollection AddUserServiceLogic(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddLogger(configuration);
             services.AddDatabaseContext(configuration);
+            services.AddAutoMapper(typeof(UserDtoProfile).Assembly);
+            services.AddRepositories();
+            services.AddServices();
+            services.AddActionService();
 
             return services;
         }
@@ -35,8 +41,27 @@ namespace DigitTwin.Core.Users.Logic
         {
             services.Configure<DatabaseSettings>(configuration.GetSection(DatabaseSettings.SectionName));
 
-            services.AddSingleton(typeof(IDbContextFactory<>), typeof(DbContextFactory<>));
+            services.AddSingleton<IDbContextFactory<UserDbContext>, DbContextFactory<UserDbContext>>();
             services.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Подключение репозиториев
+        /// </summary>
+        /// <param name="services">DI контейнер</param>
+        /// <returns>DI контейнер</returns>
+        private static IServiceCollection AddRepositories(this IServiceCollection services)
+        {
+            services.AddSingleton(typeof(IRepository<,>), typeof(Repository<,>));
+
+            return services;
+        }
+
+        private static IServiceCollection AddServices(this IServiceCollection services)
+        {
+            services.AddSingleton<IUserService, UserService>();
 
             return services;
         }
