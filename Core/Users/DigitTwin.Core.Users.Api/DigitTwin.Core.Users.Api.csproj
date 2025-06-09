@@ -22,4 +22,8 @@
     <ProjectReference Include="..\DigitTwin.Core.Users.Logic\DigitTwin.Core.Users.Logic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
