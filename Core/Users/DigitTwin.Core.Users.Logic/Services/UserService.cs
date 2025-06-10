@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DigitTwin.Core.ActionService;
 using DigitTwin.Infrastructure.LoggerSeq;
 using DigitTwin.Lib.Contracts;
 using DigitTwin.Lib.Contracts.User;
@@ -18,11 +19,15 @@ namespace DigitTwin.Core.Users
         /// <inheritdoc cref="ILoggerService"/>
         private readonly ILoggerService _logger;
 
-        public UserService(IRepository<Guid, User> repository, IMapper mapper, ILoggerService logger)
+        /// <inheritdoc cref="IActionService"/>
+        private readonly IActionService _actionService;
+
+        public UserService(IRepository<Guid, User> repository, IMapper mapper, ILoggerService logger, IActionService actionService)
         {
             _repository = repository;
             _logger = logger;
             _mapper = mapper;
+            _actionService = actionService;
         }
         #endregion
 
