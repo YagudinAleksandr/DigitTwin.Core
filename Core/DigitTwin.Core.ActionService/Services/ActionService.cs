@@ -80,9 +80,18 @@ namespace DigitTwin.Core.ActionService
             return response;
         }
 
-        public BaseApiResponse<ItemCountDto<T>> PartialResponse<T>(IReadOnlyCollection<T> items)
+        public BaseApiResponse<ItemCountDto<T>> PartialResponse<T>(IReadOnlyCollection<T> items,int startItemsCount, int endItemCount, int total)
         {
-            throw new NotImplementedException();
+            var response = new BaseApiResponse<ItemCountDto<T>>();
+            var itemsCollection = new ItemCountDto<T>();
+            itemsCollection.Items = items.ToArray();
+            itemsCollection.Count = items.Count;
+
+            response.Body = itemsCollection;
+            response.Headers.Add("Content-Range", $"{startItemsCount} - {endItemCount} / {total}");
+            response.StatusCode = 206;
+
+            return response;
         }
 
         public BaseApiResponse<BaseBodyStub> RedirectResponse(string url, int maxRedirects)

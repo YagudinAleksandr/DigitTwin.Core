@@ -34,8 +34,11 @@ namespace DigitTwin.Core.ActionService
         /// </summary>
         /// <typeparam name="T">Тип тела ответа</typeparam>
         /// <param name="items">Коллекция элементов</param>
+        /// <param name="startItemsCount">Стартовое значение</param>
+        /// <param name="endItemCount">Конечное значение</param>
+        /// <param name="total">Общая количество элементов</param>
         /// <returns><inheritdoc cref="BaseApiResponse{TBody}"/></returns>
-        BaseApiResponse<ItemCountDto<T>> PartialResponse<T>(IReadOnlyCollection<T> items);
+        BaseApiResponse<ItemCountDto<T>> PartialResponse<T>(IReadOnlyCollection<T> items, int startItemsCount, int endItemCount, int total);
 
         /// <summary>
         /// Ответ от сервера 302 (Redirect)
