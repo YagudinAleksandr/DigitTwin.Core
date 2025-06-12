@@ -1,3 +1,4 @@
+using DigitTwin.Core.ActionService;
 using DigitTwin.Core.Users.Logic;
 using DigitTwin.Lib.Abstractions.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +14,11 @@ builder.WebHost.ConfigureKestrel(options =>
 });
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ApiExceptionFilter>();
+    options.Filters.Add<ApiResponseFilter>();
+});
 
 // Add API versioning
 builder.Services.AddApiVersioning(options =>
