@@ -18,9 +18,9 @@ namespace DigitTwin.Infrastructure.LoggerSeq
         {
             var loggerConfiguration = new LoggerConfig()
             {
-                Url = configuration["LoggerSeq:Url"],
-                MinLevel = configuration["LoggerSeq:MinLevel"],
-                ApplicationName = configuration["LoggerSeq:ApplicationName"]
+                Url = configuration["LoggerSeq:Url"]!,
+                MinLevel = configuration["LoggerSeq:MinLevel"]!,
+                ApplicationName = configuration["LoggerSeq:ApplicationName"]!
                 
             };
 
