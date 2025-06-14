@@ -11,7 +11,7 @@ namespace DigitTwin.Core.ActionService
         /// <returns>DI контейнер</returns>
         public static IServiceCollection AddActionService(this IServiceCollection services) 
         {
-            services.AddScoped<IActionService, ActionService>();
+            services.AddSingleton<IActionService, ActionService>();
 
             return services;
         }

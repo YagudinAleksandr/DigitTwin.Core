@@ -1,6 +1,6 @@
 ﻿using DigitTwin.Lib.Abstractions;
 
-namespace DigitTwin.Core.Users.Logic.Filters.Users
+namespace DigitTwin.Core.Users
 {
     /// <summary>
     /// Получение одной записи пользователя по ИД

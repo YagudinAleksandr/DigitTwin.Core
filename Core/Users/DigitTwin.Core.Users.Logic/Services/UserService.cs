@@ -33,48 +33,95 @@ namespace DigitTwin.Core.Users
 
         public async Task<IBaseApiResponse> Create(UserCreateDto userCreateDto)
         {
-            var response = new BaseApiResponse<UserDto>();
+            var validationResult = userCreateDto.Run();
+
+            if (!validationResult.IsValid)
+            {
+                var validationErrors = new Dictionary<string, string>();
+
+                int validCount = 0;
+                foreach (var error in validationResult.Errors)
+                {
+                    validationErrors.Add($"ValidationError{validCount}", error);
+                }
+                return _actionService.BadRequestResponse(validationErrors);
+            }
 
             var model = _mapper.Map<User>(userCreateDto);
 
             var result = await _repository.Create(model);
 
-            if(result == null)
+            if (result == null)
             {
-                response.StatusCode = 400;
-                response.Errors.Add("NotCreated", "Не удалось создать пользователя");
-                return response;
+                var errors = new Dictionary<string, string>();
+                errors.Add("CreateError", "Не удалось создать пользователя");
+
+                return _actionService.BadRequestResponse(errors);
             }
 
-            response.StatusCode = 201;
-            response.Body = _mapper.Map<UserDto>(result);
+            var createdUser = _mapper.Map<UserDto>(result);
 
-            return response;
+            return _actionService.CreatedResponse(createdUser);
         }
 
-        public Task<IBaseApiResponse> Delete(Guid id)
+        public async Task<IBaseApiResponse> Delete(Guid id)
         {
+            var user = await _repository.GetByFilter(new GetSingleUserById(id));
+
+            if (user == null)
+            {
+                return _actionService.NotFoundResponse($"Пользователь с ID {id} не найден");
+            }
+
+            await _repository.Delete(user);
+
+            return _actionService.NoContentResponse();
+        }
+
+        public Task<IBaseApiResponse> GetAll(int maxElements, int startPosition, int endPosition)
+        {
+            // TODO: Подумать над фильтрацией
             throw new NotImplementedException();
         }
 
-        public Task<IBaseApiResponse> GetAll(string email, string name, int type, int status)
+        public async Task<IBaseApiResponse> GetById(Guid id)
         {
-            throw new NotImplementedException();
+            var user = await _repository.GetByFilter(new GetSingleUserById(id));
+
+            if (user == null)
+            {
+                return _actionService.NotFoundResponse($"Пользователь с ID {id} не найден");
+            }
+
+            return _actionService.OkResponse(_mapper.Map<UserDto>(user));
         }
 
-        public Task<IBaseApiResponse> GetById(Guid id)
+        public async Task<IBaseApiResponse> IsEmailExists(string email)
         {
-            throw new NotImplementedException();
+            var user = await _repository.GetByFilter(new GetSingleUserByEmail(email));
+
+            return user != null ? _actionService.OkResponse(true) : _actionService.OkResponse(false);
         }
 
-        public Task<IBaseApiResponse> IsEmailExists(string email)
+        public async Task<IBaseApiResponse> Update(UserDto userDto)
         {
-            throw new NotImplementedException();
-        }
+            var user = _mapper.Map<User>(userDto);
 
-        public Task<IBaseApiResponse> Update(UserDto userDto)
-        {
-            throw new NotImplementedException();
+            user = await _repository.Update(user);
+
+            if (user == null)
+            {
+                var errors = new Dictionary<string, string>
+                {
+                    { "NotUpdated", "Не удалось обновить пользователя" }
+                };
+
+                return _actionService.BadRequestResponse(errors);
+            }
+            else
+            {
+                return _actionService.OkResponse(_mapper.Map<UserDto>(user));
+            }
         }
     }
 }
