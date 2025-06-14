@@ -1,8 +1,12 @@
 ﻿using DigitTwin.Core.ActionService;
 using DigitTwin.Core.Users.Logic.Data;
+using DigitTwin.Core.Users.Logic.Validators.Users;
 using DigitTwin.Infrastructure.DataContext;
 using DigitTwin.Infrastructure.LoggerSeq;
 using DigitTwin.Lib.Abstractions.Services;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,6 +28,7 @@ namespace DigitTwin.Core.Users.Logic
             services.AddLogger(configuration);
             services.AddDatabaseContext(configuration);
             services.AddAutoMapper(typeof(UserDtoProfile).Assembly);
+            services.AddLocalization();
             services.AddRepositories();
             services.AddServices();
             services.AddActionService();
@@ -67,6 +72,32 @@ namespace DigitTwin.Core.Users.Logic
         private static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddSingleton<IUserService, UserService>();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Локализация данных валидатора
+        /// </summary>
+        /// <param name="services">DI контейнер</param>
+        /// <returns>DI контейнер</returns>
+        private static IServiceCollection AddLocalization(this IServiceCollection services) 
+        {
+            services.AddLocalization(optons =>
+            {
+                optons.ResourcesPath = "Resources";
+            });
+
+            services.AddFluentValidationAutoValidation();
+            services.AddValidatorsFromAssemblyContaining<UserCreationValidator>();
+
+            var supportedCultures = new[] { "en-US", "ru" };
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                options.SetDefaultCulture("ru");
+                options.AddSupportedCultures(supportedCultures);
+                options.AddSupportedUICultures(supportedCultures);
+            });
 
             return services;
         }
