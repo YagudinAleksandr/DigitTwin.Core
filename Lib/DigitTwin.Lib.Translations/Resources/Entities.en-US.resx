@@ -117,19 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="RequiredField" xml:space="preserve">
-    <value>The field {0} is required.</value>
+  <data name="Organization" xml:space="preserve">
+    <value>Organization</value>
   </data>
-  <data name="InvalidEmail" xml:space="preserve">
-    <value>{0} must be a valid email address.</value>
-  </data>
-  <data name="MaxLengthExceeded" xml:space="preserve">
-    <value>{0} cannot exceed {1} characters.</value>
-  </data>
-  <data name="MinLengthExceeded" xml:space="preserve">
-    <value>{0} can not less then {1} characters.</value>
-  </data>
-  <data name="Range" xml:space="preserve">
-    <value>{0} must range from {1} to {2}</value>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
   </data>
 </root>

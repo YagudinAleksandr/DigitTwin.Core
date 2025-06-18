@@ -1,8 +1,10 @@
 ﻿using DigitTwin.Core.ActionService;
 using DigitTwin.Core.Users.Logic.Data;
 using DigitTwin.Core.Users.Logic.Validators.Users;
+using DigitTwin.Infrastructure.ApacheKafka;
 using DigitTwin.Infrastructure.DataContext;
 using DigitTwin.Infrastructure.LoggerSeq;
+using DigitTwin.Infrastructure.Redis;
 using DigitTwin.Lib.Abstractions.Services;
 using DigitTwin.Lib.Contracts.User;
 using FluentValidation;
@@ -32,6 +34,8 @@ namespace DigitTwin.Core.Users
             services.AddRepositories();
             services.AddServices();
             services.AddActionService();
+            services.AddKafka(configuration);
+            services.AddRedisService(configuration);
 
             return services;
         }
