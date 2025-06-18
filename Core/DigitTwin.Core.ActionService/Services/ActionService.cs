@@ -4,7 +4,7 @@ namespace DigitTwin.Core.ActionService
 {
     internal class ActionService : IActionService
     {
-        public BaseApiResponse<BaseBodyStub> BadRequestResponse(Dictionary<string, string> errors)
+        public BaseApiResponse<BaseBodyStub> BadRequestResponse(List<string> errors)
         {
             var response = new BaseApiResponse<BaseBodyStub>
             {
@@ -32,7 +32,7 @@ namespace DigitTwin.Core.ActionService
             {
                 StatusCode = 403
             };
-            response.Errors.Add("Forbiden", "Доступ к запрашиваемому ресурсу запрещен");
+            response.Errors.Add("Доступ к запрашиваемому ресурсу запрещен");
 
             return response;
         }
@@ -53,7 +53,7 @@ namespace DigitTwin.Core.ActionService
             {
                 StatusCode = 401
             };
-            response.Errors.Add("NotAuthorized", "Пользователь не авторизирован");
+            response.Errors.Add("Пользователь не авторизирован");
 
             return response;
         }
@@ -64,7 +64,7 @@ namespace DigitTwin.Core.ActionService
             {
                 StatusCode = 404
             };
-            response.Errors.Add("NotFound", error);
+            response.Errors.Add(error);
 
             return response;
         }
@@ -112,7 +112,7 @@ namespace DigitTwin.Core.ActionService
             {
                 StatusCode = 500
             };
-            response.Errors.Add("ServerError", error.ToString());
+            response.Errors.Add(error.ToString());
 
             return response;
         }

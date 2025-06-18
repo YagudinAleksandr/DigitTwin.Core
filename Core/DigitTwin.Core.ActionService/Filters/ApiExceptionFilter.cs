@@ -16,7 +16,7 @@ namespace DigitTwin.Core.ActionService
             {
                 StatusCode = StatusCodes.Status500InternalServerError
             };
-            response.Errors.Add("InternalServerError", context.Exception.Message);
+            response.Errors.Add(context.Exception.Message);
 
             context.Result = new ObjectResult(response)
             {

@@ -16,8 +16,8 @@
     <ProjectReference Include="..\..\..\DigitTwin.Lib\DigitTwin.Lib.EventBroker\DigitTwin.Lib.EventBroker.csproj" />
     <ProjectReference Include="..\..\..\DigitTwin.Lib\DigitTwin.Lib.Geo.Abstractions\DigitTwin.Lib.Geo.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\DigitTwin.Lib\DigitTwin.Lib.PipelineBuilder\DigitTwin.Lib.PipelineBuilder.csproj" />
-    <ProjectReference Include="..\..\..\DigitTwin.Lib\DigitTwin.Lib.Validator\DigitTwin.Lib.Validator.csproj" />
     <ProjectReference Include="..\DigitTwin.Lib.Abstractions\DigitTwin.Lib.Abstractions.csproj" />
+    <ProjectReference Include="..\DigitTwin.Lib.Translations\DigitTwin.Lib.Translations.csproj" />
   </ItemGroup>
 
 </Project>

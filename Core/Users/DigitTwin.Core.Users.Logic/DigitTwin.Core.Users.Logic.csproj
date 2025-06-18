@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.5" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.5" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.5" />
@@ -14,8 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Infrastructure\DigitTwin.Infrastructure.ApacheKafka\DigitTwin.Infrastructure.ApacheKafka.csproj" />
     <ProjectReference Include="..\..\..\Infrastructure\DigitTwin.Infrastructure.DataContext\DigitTwin.Infrastructure.DataContext.csproj" />
     <ProjectReference Include="..\..\..\Infrastructure\DigitTwin.Infrastructure.LoggerSeq\DigitTwin.Infrastructure.LoggerSeq.csproj" />
+    <ProjectReference Include="..\..\..\Infrastructure\DigitTwin.Infrastructure.Redis\DigitTwin.Infrastructure.Redis.csproj" />
     <ProjectReference Include="..\DigitTwin.Core.Users.Abstractions\DigitTwin.Core.Users.Abstractions.csproj" />
   </ItemGroup>
 
