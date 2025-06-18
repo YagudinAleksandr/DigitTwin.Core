@@ -7,11 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Lib\DigitTwin.Lib.Misc\DigitTwin.Lib.Misc.csproj" />
+    <ProjectReference Include="..\..\DigitTwin.Core.ActionService\DigitTwin.Core.ActionService.csproj" />
   </ItemGroup>
 
 </Project>
