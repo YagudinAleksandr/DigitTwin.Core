@@ -4,13 +4,13 @@ using DigitTwin.Core.Users.Logic.Validators.Users;
 using DigitTwin.Infrastructure.DataContext;
 using DigitTwin.Infrastructure.LoggerSeq;
 using DigitTwin.Lib.Abstractions.Services;
+using DigitTwin.Lib.Contracts.User;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DigitTwin.Core.Users.Logic
+namespace DigitTwin.Core.Users
 {
     /// <summary>
     /// Расширения DI для работы с сервисом для пользователей
@@ -28,7 +28,7 @@ namespace DigitTwin.Core.Users.Logic
             services.AddLogger(configuration);
             services.AddDatabaseContext(configuration);
             services.AddAutoMapper(typeof(UserDtoProfile).Assembly);
-            services.AddLocalization();
+            services.AddValidators();
             services.AddRepositories();
             services.AddServices();
             services.AddActionService();
@@ -77,27 +77,16 @@ namespace DigitTwin.Core.Users.Logic
         }
 
         /// <summary>
-        /// Локализация данных валидатора
+        /// Валидаторы
         /// </summary>
         /// <param name="services">DI контейнер</param>
         /// <returns>DI контейнер</returns>
-        private static IServiceCollection AddLocalization(this IServiceCollection services) 
+        private static IServiceCollection AddValidators(this IServiceCollection services) 
         {
-            services.AddLocalization(optons =>
-            {
-                optons.ResourcesPath = "Resources";
-            });
-
+            // FluentValidation
             services.AddFluentValidationAutoValidation();
-            services.AddValidatorsFromAssemblyContaining<UserCreationValidator>();
-
-            var supportedCultures = new[] { "en-US", "ru" };
-            services.Configure<RequestLocalizationOptions>(options =>
-            {
-                options.SetDefaultCulture("ru");
-                options.AddSupportedCultures(supportedCultures);
-                options.AddSupportedUICultures(supportedCultures);
-            });
+            services.AddFluentValidationClientsideAdapters();
+            services.AddScoped<IValidator<UserCreateDto>, UserCreationValidator>();
 
             return services;
         }

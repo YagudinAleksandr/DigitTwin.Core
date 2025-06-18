@@ -3,6 +3,8 @@ using DigitTwin.Core.ActionService;
 using DigitTwin.Infrastructure.LoggerSeq;
 using DigitTwin.Lib.Contracts;
 using DigitTwin.Lib.Contracts.User;
+using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DigitTwin.Core.Users
 {
@@ -22,29 +24,49 @@ namespace DigitTwin.Core.Users
         /// <inheritdoc cref="IActionService"/>
         private readonly IActionService _actionService;
 
-        public UserService(IRepository<Guid, User> repository, IMapper mapper, ILoggerService logger, IActionService actionService)
+        /// <inheritdoc cref="IServiceScopeFactory"/>
+        private readonly IServiceScopeFactory _serviceScope;
+
+        public UserService(IRepository<Guid, User> repository,
+            IMapper mapper,
+            ILoggerService logger,
+            IActionService actionService,
+            IServiceScopeFactory serviceScope)
         {
             _repository = repository;
             _logger = logger;
             _mapper = mapper;
             _actionService = actionService;
+            _serviceScope = serviceScope;
         }
         #endregion
 
         public async Task<IBaseApiResponse> Create(UserCreateDto userCreateDto)
         {
-            var validationResult = userCreateDto.Run();
+            var user = await _repository.GetByFilter(new GetSingleUserByEmail(userCreateDto.Email));
+
+            if (user != null)
+            {
+                var errors = new List<string>()
+                {
+                    "Не удалось создать пользователя"
+                };
+                return _actionService.BadRequestResponse(errors);
+            }
+
+            var scopedValidator = _serviceScope.CreateScope().ServiceProvider.GetRequiredService<IValidator>();
+
+            var validationContext = new ValidationContext<UserCreateDto>(userCreateDto);
+            var validationResult = await scopedValidator.ValidateAsync(validationContext);
 
             if (!validationResult.IsValid)
             {
-                var validationErrors = new Dictionary<string, string>();
-
-                int validCount = 0;
-                foreach (var error in validationResult.Errors)
+                var errors = new List<string>();
+                foreach(var error in validationResult.Errors)
                 {
-                    validationErrors.Add($"ValidationError{validCount}", error);
+                    errors.Add(error.ErrorMessage);
                 }
-                return _actionService.BadRequestResponse(validationErrors);
+                return _actionService.BadRequestResponse(errors);
             }
 
             var model = _mapper.Map<User>(userCreateDto);
@@ -53,8 +75,10 @@ namespace DigitTwin.Core.Users
 
             if (result == null)
             {
-                var errors = new Dictionary<string, string>();
-                errors.Add("CreateError", "Не удалось создать пользователя");
+                var errors = new List<string>
+                {
+                    {"Не удалось создать пользователя" }
+                };
 
                 return _actionService.BadRequestResponse(errors);
             }
@@ -111,9 +135,9 @@ namespace DigitTwin.Core.Users
 
             if (user == null)
             {
-                var errors = new Dictionary<string, string>
+                var errors = new List<string>
                 {
-                    { "NotUpdated", "Не удалось обновить пользователя" }
+                    {"Не удалось обновить пользователя" }
                 };
 
                 return _actionService.BadRequestResponse(errors);

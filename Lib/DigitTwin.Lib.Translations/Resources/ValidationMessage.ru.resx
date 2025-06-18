@@ -117,16 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EmailInvalid" xml:space="preserve">
-    <value>Невалидный E-mail</value>
+  <data name="RequiredField" xml:space="preserve">
+    <value>Поле {0} обязательно для заполнения.</value>
   </data>
-  <data name="EmailMaxLength" xml:space="preserve">
-    <value>E-mail может иметь максимум {0} символов</value>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>{0} должен быть действительным email адресом.</value>
   </data>
-  <data name="EmailMinLength" xml:space="preserve">
-    <value>E-mail должен иметь минимум {0} символа</value>
+  <data name="MaxLengthExceeded" xml:space="preserve">
+    <value>{0} не может превышать {1} символов.</value>
   </data>
-  <data name="EmailRequired" xml:space="preserve">
-    <value>Поле E-mail обязательно для заполнения</value>
+  <data name="MinLengthExceeded" xml:space="preserve">
+    <value>{0} не может быть меньше {1} символов.</value>
   </data>
 </root>

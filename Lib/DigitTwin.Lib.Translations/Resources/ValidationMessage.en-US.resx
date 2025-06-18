@@ -117,16 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EmailInvalid" xml:space="preserve">
-    <value>E-mail is invalid</value>
+  <data name="RequiredField" xml:space="preserve">
+    <value>The field {0} is required.</value>
   </data>
-  <data name="EmailMaxLength" xml:space="preserve">
-    <value>E-mail max length {0}</value>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>{0} must be a valid email address.</value>
   </data>
-  <data name="EmailMinLength" xml:space="preserve">
-    <value>E-mail min length {0}</value>
+  <data name="MaxLengthExceeded" xml:space="preserve">
+    <value>{0} cannot exceed {1} characters.</value>
   </data>
-  <data name="EmailRequired" xml:space="preserve">
-    <value>E-mail is required</value>
+  <data name="MinLengthExceeded" xml:space="preserve">
+    <value>{0} can not less then {1} characters.</value>
   </data>
 </root>
