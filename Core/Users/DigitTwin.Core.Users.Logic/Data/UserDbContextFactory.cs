@@ -18,7 +18,7 @@ namespace DigitTwin.Core.Users.Logic.Data
             var settings = configuration.GetSection(DatabaseSettings.SectionName).Get<DatabaseSettings>();
             var optionsBuilder = new DbContextOptionsBuilder<UserDbContext>();
 
-            if (settings.Provider.Equals("PostgreSQL", StringComparison.OrdinalIgnoreCase))
+            if (settings!.Provider.Equals("PostgreSQL", StringComparison.OrdinalIgnoreCase))
             {
                 optionsBuilder.UseNpgsql(settings.ConnectionStrings.PostgreSQL);
             }

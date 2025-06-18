@@ -26,7 +26,7 @@ namespace DigitTwin.Infrastructure.Redis
         public async Task<T?> GetAsync(string key)
         {
             var value = await _database.StringGetAsync(key);
-            return value.IsNullOrEmpty ? null : JsonSerializer.Deserialize<T>(value);
+            return value.IsNullOrEmpty ? null : JsonSerializer.Deserialize<T>(value!);
         }
 
         public async Task SetAsync(string key, T value, TimeSpan? ttl = null)

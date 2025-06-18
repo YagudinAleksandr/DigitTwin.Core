@@ -53,7 +53,7 @@ namespace DigitTwin.Core.ActionService
         /// </summary>
         /// <param name="errors">Ошибки</param>
         /// <returns><inheritdoc cref="BaseApiResponse{TBody}"/></returns>
-        BaseApiResponse<BaseBodyStub> BadRequestResponse(Dictionary<string, string> errors);
+        BaseApiResponse<BaseBodyStub> BadRequestResponse(List<string> errors);
 
         /// <summary>
         /// Ответ от сервера 404 (NotFound)

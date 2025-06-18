@@ -1,12 +1,16 @@
 ﻿using DigitTwin.Core.ActionService;
 using DigitTwin.Core.Users.Logic.Data;
+using DigitTwin.Core.Users.Logic.Validators.Users;
 using DigitTwin.Infrastructure.DataContext;
 using DigitTwin.Infrastructure.LoggerSeq;
 using DigitTwin.Lib.Abstractions.Services;
+using DigitTwin.Lib.Contracts.User;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DigitTwin.Core.Users.Logic
+namespace DigitTwin.Core.Users
 {
     /// <summary>
     /// Расширения DI для работы с сервисом для пользователей
@@ -24,6 +28,7 @@ namespace DigitTwin.Core.Users.Logic
             services.AddLogger(configuration);
             services.AddDatabaseContext(configuration);
             services.AddAutoMapper(typeof(UserDtoProfile).Assembly);
+            services.AddValidators();
             services.AddRepositories();
             services.AddServices();
             services.AddActionService();
@@ -67,6 +72,21 @@ namespace DigitTwin.Core.Users.Logic
         private static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddSingleton<IUserService, UserService>();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Валидаторы
+        /// </summary>
+        /// <param name="services">DI контейнер</param>
+        /// <returns>DI контейнер</returns>
+        private static IServiceCollection AddValidators(this IServiceCollection services) 
+        {
+            // FluentValidation
+            services.AddFluentValidationAutoValidation();
+            services.AddFluentValidationClientsideAdapters();
+            services.AddScoped<IValidator<UserCreateDto>, UserCreationValidator>();
 
             return services;
         }

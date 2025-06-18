@@ -18,17 +18,12 @@ namespace DigitTwin.Core.Users
         /// <inheritdoc cref="IDbContextFactory{TContext}"/>
         private readonly Infrastructure.DataContext.IDbContextFactory<UserDbContext> _context;
 
-        /// <inheritdoc cref="DbSet{TEntity}"/>
-        private readonly DbSet<TEntity> _entities;
-
         /// <inheritdoc cref="ILoggerService"/>
         private readonly ILoggerService _logger;
 
         public Repository(Infrastructure.DataContext.IDbContextFactory<UserDbContext> context, ILoggerService logger)
         {
             _context = context;
-            using var cont = _context.CreateDbContext();
-            _entities = cont.Set<TEntity>();
             _logger = logger;
         }
         #endregion
@@ -56,8 +51,9 @@ namespace DigitTwin.Core.Users
             try
             {
                 using var context = _context.CreateDbContext();
+                var entities = context.Set<TEntity>();
 
-                _entities.Remove(entity);
+                entities.Remove(entity);
                 await context.SaveChangesAsync();
             }
             catch(Exception ex)
@@ -66,24 +62,25 @@ namespace DigitTwin.Core.Users
             }
         }
 
-        public Task<TEntity?> GetByFilter(IBaseFilter<TEntity> filter)
+        public async Task<TEntity?> GetByFilter(IBaseFilter<TEntity> filter)
         {
             try
             {
-                return Task.Run(() =>
+                using var context = _context.CreateDbContext();
+                var entities = context.Set<TEntity>();
+                var entity = await entities.FirstOrDefaultAsync(filter.Criteria);
+
+                if (entity == null)
                 {
-                    var entity = _entities.Where(filter.Criteria).FirstOrDefault();
-                    if(entity == null)
-                    {
-                        _logger.LogWarning(ServiceName, $"Can not finde entity with params {filter.Criteria}");
-                        return null;
-                    }
-                    return entity;
-                });
+                    _logger.LogWarning(ServiceName, $"Cannot find entity with params {filter.Criteria}");
+                    return null;
+                }
+
+                return entity;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                _logger.LogError(ServiceName, "Can not filtered entity", ex);
+                _logger.LogError(ServiceName, "Cannot filter entity", ex);
                 return null;
             }
         }
@@ -92,12 +89,14 @@ namespace DigitTwin.Core.Users
         {
             try
             {
-                return await _entities.Where(filter.Criteria).ToListAsync();
+                using var context = _context.CreateDbContext();
+                var entities = context.Set<TEntity>();
+                return await entities.Where(filter.Criteria).ToListAsync();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ServiceName, "Can not filtered entities", ex);
-                return null;
+                _logger.LogError(ServiceName, "Cannot filter entities", ex);
+                return [];
             }
         }
 
@@ -106,8 +105,10 @@ namespace DigitTwin.Core.Users
             try
             {
                 using var context = _context.CreateDbContext();
+                var entities = context.Set<TEntity>();
 
-                _entities.Update(entity);
+                entities.Update(entity);
+
                 await context.SaveChangesAsync();
 
                 return entity;
