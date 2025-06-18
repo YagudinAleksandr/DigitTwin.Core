@@ -129,4 +129,7 @@
   <data name="MinLengthExceeded" xml:space="preserve">
     <value>{0} не может быть меньше {1} символов.</value>
   </data>
+  <data name="Range" xml:space="preserve">
+    <value>{0} должно быть в диапозоне от {1} до {2}</value>
+  </data>
 </root>
