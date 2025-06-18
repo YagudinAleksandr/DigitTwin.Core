@@ -8,11 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="14.0.0" />
-    <PackageReference Include="FluentValidation" Version="12.0.0" />
-    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.6" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="9.0.6" />
-	<PackageReference Include="Microsoft.AspNetCore.Localization" Version="2.3.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,7 +17,6 @@
     <ProjectReference Include="..\..\..\DigitTwin.Lib\DigitTwin.Lib.Geo.Abstractions\DigitTwin.Lib.Geo.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\DigitTwin.Lib\DigitTwin.Lib.PipelineBuilder\DigitTwin.Lib.PipelineBuilder.csproj" />
     <ProjectReference Include="..\DigitTwin.Lib.Abstractions\DigitTwin.Lib.Abstractions.csproj" />
-    <ProjectReference Include="..\DigitTwin.Lib.Translations\DigitTwin.Lib.Translations.csproj" />
   </ItemGroup>
 
 </Project>
