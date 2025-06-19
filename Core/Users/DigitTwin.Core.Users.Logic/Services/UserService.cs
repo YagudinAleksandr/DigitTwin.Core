@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using DigitTwin.Core.ActionService;
 using DigitTwin.Infrastructure.LoggerSeq;
+using DigitTwin.Lib.Abstractions;
 using DigitTwin.Lib.Contracts;
 using DigitTwin.Lib.Contracts.User;
+using DigitTwin.Lib.Translations.Translators;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -49,20 +51,20 @@ namespace DigitTwin.Core.Users
             {
                 var errors = new List<string>()
                 {
-                    "Не удалось создать пользователя"
+                    Errors.AlreadyExist(Entities.User())
                 };
                 return _actionService.BadRequestResponse(errors);
             }
 
-            var scopedValidator = _serviceScope.CreateScope().ServiceProvider.GetRequiredService<IValidator>();
+            var scopedValidator = _serviceScope.CreateScope().ServiceProvider.GetService<IValidator<UserCreateDto>>();
 
             var validationContext = new ValidationContext<UserCreateDto>(userCreateDto);
-            var validationResult = await scopedValidator.ValidateAsync(validationContext);
+            var validationResult = await scopedValidator!.ValidateAsync(validationContext);
 
             if (!validationResult.IsValid)
             {
                 var errors = new List<string>();
-                foreach(var error in validationResult.Errors)
+                foreach (var error in validationResult.Errors)
                 {
                     errors.Add(error.ErrorMessage);
                 }
@@ -77,7 +79,7 @@ namespace DigitTwin.Core.Users
             {
                 var errors = new List<string>
                 {
-                    {"Не удалось создать пользователя" }
+                    Errors.CannotCreate(Entities.User())
                 };
 
                 return _actionService.BadRequestResponse(errors);
@@ -94,7 +96,7 @@ namespace DigitTwin.Core.Users
 
             if (user == null)
             {
-                return _actionService.NotFoundResponse($"Пользователь с ID {id} не найден");
+                return _actionService.NotFoundResponse(Errors.CannotFind(Entities.User(), "ID", $"{id}"));
             }
 
             await _repository.Delete(user);
@@ -102,10 +104,11 @@ namespace DigitTwin.Core.Users
             return _actionService.NoContentResponse();
         }
 
-        public Task<IBaseApiResponse> GetAll(int maxElements, int startPosition, int endPosition)
+        public async Task<IBaseApiResponse> GetAllByFilter(Filter filter, int maxElements, int startPosition, int endPosition)
         {
-            // TODO: Подумать над фильтрацией
-            throw new NotImplementedException();
+            var (entities, totalCount) = await _repository.GetAll(filter, maxElements, startPosition, endPosition);
+
+            return _actionService.PartialResponse(entities.ToList(), startPosition, endPosition, totalCount);
         }
 
         public async Task<IBaseApiResponse> GetById(Guid id)
@@ -114,7 +117,7 @@ namespace DigitTwin.Core.Users
 
             if (user == null)
             {
-                return _actionService.NotFoundResponse($"Пользователь с ID {id} не найден");
+                return _actionService.NotFoundResponse(Errors.CannotFind(Entities.User(), "ID", $"{id}"));
             }
 
             return _actionService.OkResponse(_mapper.Map<UserDto>(user));
@@ -137,7 +140,7 @@ namespace DigitTwin.Core.Users
             {
                 var errors = new List<string>
                 {
-                    {"Не удалось обновить пользователя" }
+                    Errors.CannotUpdate(Entities.User())
                 };
 
                 return _actionService.BadRequestResponse(errors);
