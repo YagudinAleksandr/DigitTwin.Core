@@ -18,6 +18,8 @@ namespace DigitTwin.Lib.Translations.Translators
             new ResourceManager("DigitTwin.Lib.Translations.Resources.Errors",
                 Assembly.GetExecutingAssembly());
 
+        public static string AlreadyExist(string name) => Format("AlreadyExist", name);
+
         public static string CannotCreate(string name) => Format("CannotCreate", name);
 
         public static string CannotFind(string name, string paramName, string val) => Format("CannotFind", name, paramName, val);

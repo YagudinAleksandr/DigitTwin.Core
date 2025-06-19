@@ -1,4 +1,5 @@
-﻿using DigitTwin.Lib.Contracts;
+﻿using DigitTwin.Lib.Abstractions;
+using DigitTwin.Lib.Contracts;
 using DigitTwin.Lib.Contracts.User;
 
 namespace DigitTwin.Core.Users
@@ -44,12 +45,13 @@ namespace DigitTwin.Core.Users
         Task<IBaseApiResponse> GetById(Guid id);
 
         /// <summary>
-        /// Получение списка пользователей
+        /// Получение всех записей
         /// </summary>
-        /// <param name="maxElements">Максимальное количество элементов</param>
-        /// <param name="startPosition">Стартовый элемент</param>
-        /// <param name="endPosition">Конечный элемент</param>
-        /// <returns>Ответ сервера</returns>
-        Task<IBaseApiResponse> GetAll(int maxElements, int startPosition, int endPosition);
+        /// <param name="filter">Фильтр</param>
+        /// <param name="maxElements"></param>
+        /// <param name="startPosition"></param>
+        /// <param name="endPosition"></param>
+        /// <returns>Ответ от сервера</returns>
+        Task<IBaseApiResponse> GetAllByFilter(Filter filter, int maxElements, int startPosition, int endPosition);
     }
 }
