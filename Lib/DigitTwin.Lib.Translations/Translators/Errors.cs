@@ -1,32 +1,28 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Resources;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DigitTwin.Lib.Translations
+namespace DigitTwin.Lib.Translations.Translators
 {
     /// <summary>
-    /// Выбор языковых ресурсов (полей) для сообщений валидации
+    /// Выбор языковых ресурсов (полей) для ошибок
     /// </summary>
-    public class ValidationMessage
+    public static class Errors
     {
         private static readonly ResourceManager _resourceManager =
-            new ResourceManager("DigitTwin.Lib.Translations.Resources.ValidationMessage",
+            new ResourceManager("DigitTwin.Lib.Translations.Resources.Errors",
                 Assembly.GetExecutingAssembly());
 
-        public static string RequiredField(string fieldName) =>
-            Format("RequiredField", fieldName);
+        public static string CannotCreate(string name) => Format("CannotCreate", name);
 
-        public static string InvalidEmail(string fieldName) =>
-            Format("InvalidEmail", fieldName);
+        public static string CannotFind(string name, string paramName, string val) => Format("CannotFind", name, paramName, val);
 
-        public static string MaxLengthExceeded(string fieldName, int maxLength) =>
-            Format("MaxLengthExceeded", fieldName, maxLength);
-
-        public static string MinLengthExceeded(string fieldName, int minLength) =>
-            Format("MinLengthExceeded", fieldName, minLength);
-
-        public static string Range(string fieldName, int start, int end) =>
-            Format("Range", fieldName, start, end);
+        public static string CannotUpdate(string name) => Format("CannotUpdate", name);
 
         private static string Format(string key, params object[] args)
         {
