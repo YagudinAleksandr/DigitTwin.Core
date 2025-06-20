@@ -1,4 +1,4 @@
-﻿using DigitTwin.Lib.Contracts.User;
+﻿using DigitTwin.Lib.Contracts;
 using DigitTwin.Lib.Translations;
 using FluentValidation;
 

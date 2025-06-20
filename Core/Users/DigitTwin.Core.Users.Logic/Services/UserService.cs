@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
 using DigitTwin.Core.ActionService;
-using DigitTwin.Infrastructure.LoggerSeq;
 using DigitTwin.Lib.Abstractions;
 using DigitTwin.Lib.Contracts;
-using DigitTwin.Lib.Contracts.User;
 using DigitTwin.Lib.Translations.Translators;
 using FluentValidation;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace DigitTwin.Core.Users
 {
@@ -20,26 +17,21 @@ namespace DigitTwin.Core.Users
         /// <inheritdoc cref="IMapper"/>
         private readonly IMapper _mapper;
 
-        /// <inheritdoc cref="ILoggerService"/>
-        private readonly ILoggerService _logger;
-
         /// <inheritdoc cref="IActionService"/>
         private readonly IActionService _actionService;
 
-        /// <inheritdoc cref="IServiceScopeFactory"/>
-        private readonly IServiceScopeFactory _serviceScope;
+        /// <inheritdoc cref="IValidator"/>
+        private readonly IValidator<UserCreateDto> _validator;
 
         public UserService(IRepository<Guid, User> repository,
             IMapper mapper,
-            ILoggerService logger,
             IActionService actionService,
-            IServiceScopeFactory serviceScope)
+            IValidator<UserCreateDto> validator)
         {
             _repository = repository;
-            _logger = logger;
             _mapper = mapper;
             _actionService = actionService;
-            _serviceScope = serviceScope;
+            _validator = validator;
         }
         #endregion
 
@@ -56,10 +48,8 @@ namespace DigitTwin.Core.Users
                 return _actionService.BadRequestResponse(errors);
             }
 
-            var scopedValidator = _serviceScope.CreateScope().ServiceProvider.GetService<IValidator<UserCreateDto>>();
-
             var validationContext = new ValidationContext<UserCreateDto>(userCreateDto);
-            var validationResult = await scopedValidator!.ValidateAsync(validationContext);
+            var validationResult = await _validator.ValidateAsync(validationContext);
 
             if (!validationResult.IsValid)
             {
