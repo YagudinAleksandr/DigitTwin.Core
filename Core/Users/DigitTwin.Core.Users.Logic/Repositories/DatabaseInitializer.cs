@@ -1,6 +1,7 @@
 ﻿using DigitTwin.Core.Users.Logic.Data;
 using DigitTwin.Infrastructure.LoggerSeq;
 using DigitTwin.Lib.Abstractions.Services;
+using DigitTwin.Lib.Misc.Tools;
 using Microsoft.EntityFrameworkCore;
 
 namespace DigitTwin.Core.Users
@@ -54,13 +55,16 @@ namespace DigitTwin.Core.Users
                     return;
                 }
 
+                PasswordHasherTool.CreatePasswordHash("defaultPass", out byte[] password, out byte[] salt);
+
                 var defaultUser = new User
                 {
                     Name = "Администратор",
                     Type = UserTypeEnum.Administrator,
                     Status = UserStatusEnum.Active,
                     Email = "test@test.ru",
-                    Password = ""
+                    Password = password,
+                    PasswordSalt = salt
                 };
 
                 await context.AddAsync(defaultUser);

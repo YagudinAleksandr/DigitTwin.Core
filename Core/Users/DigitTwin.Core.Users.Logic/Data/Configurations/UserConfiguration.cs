@@ -15,7 +15,8 @@ namespace DigitTwin.Core.Users.Logic
             builder.Property(x=>x.Email).IsRequired().HasMaxLength(60);
             builder.HasIndex(x => x.Email).IsUnique();
             builder.Property(x => x.Name).IsRequired(false).HasMaxLength(60);
-            builder.Property(x => x.Password).IsRequired(false).HasMaxLength(255);
+            builder.Property(x => x.Password).IsRequired(false);
+            builder.Property(x => x.PasswordSalt).IsRequired(false);
             builder.Property(x => x.Type).HasDefaultValue(UserTypeEnum.User);
             builder.Property(x => x.Status).HasDefaultValue(UserStatusEnum.NotActive);
         }

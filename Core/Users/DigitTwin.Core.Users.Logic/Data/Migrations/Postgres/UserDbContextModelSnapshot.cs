@@ -99,9 +99,11 @@ namespace DigitTwin.Core.Users.Logic.Data.Migrations.Postgres
                     b.Property<Guid?>("OrganizationId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Password")
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                    b.Property<byte[]>("Password")
+                        .HasColumnType("bytea");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .HasColumnType("bytea");
 
                     b.Property<int>("Status")
                         .ValueGeneratedOnAdd()

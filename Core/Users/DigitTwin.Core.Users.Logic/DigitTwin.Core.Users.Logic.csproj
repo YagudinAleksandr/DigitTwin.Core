@@ -23,4 +23,8 @@
     <ProjectReference Include="..\DigitTwin.Core.Users.Abstractions\DigitTwin.Core.Users.Abstractions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Migrations\Postgres\" />
+  </ItemGroup>
+
 </Project>

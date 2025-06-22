@@ -7,12 +7,13 @@ using FluentValidation;
 
 namespace DigitTwin.Core.Users
 {
-    /// <inheritdoc cref="IUserService"/>
-    internal class UserService : IUserService
+    /// <inheritdoc cref="IOrganizationService"/>
+    internal class OrganizationService : IOrganizationService
     {
         #region CTOR
+
         /// <inheritdoc cref="IRepository{TKey, TEntity}"/>
-        private readonly IRepository<Guid, User> _repository;
+        private readonly IRepository<Guid, Organization> _repository;
 
         /// <inheritdoc cref="IMapper"/>
         private readonly IMapper _mapper;
@@ -20,35 +21,37 @@ namespace DigitTwin.Core.Users
         /// <inheritdoc cref="IActionService"/>
         private readonly IActionService _actionService;
 
-        /// <inheritdoc cref="IValidator"/>
-        private readonly IValidator<UserCreateDto> _validator;
+        // <inheritdoc cref="IValidator"/>
+        private readonly IValidator<OrganizationCreateRequestDto> _validator;
 
-        public UserService(IRepository<Guid, User> repository,
+        public OrganizationService(IRepository<Guid, Organization> repository,
             IMapper mapper,
             IActionService actionService,
-            IValidator<UserCreateDto> validator)
+            IValidator<OrganizationCreateRequestDto> validator)
         {
+            _actionService = actionService;
             _repository = repository;
             _mapper = mapper;
-            _actionService = actionService;
             _validator = validator;
         }
+
         #endregion
 
-        public async Task<IBaseApiResponse> Create(UserCreateDto userCreateDto)
+        public async Task<IBaseApiResponse> Create(OrganizationCreateRequestDto organization)
         {
-            var user = await _repository.GetByFilter(new GetSingleUserByEmail(userCreateDto.Email));
+            var existingOrg = await _repository.GetByFilter(new GetSingleOrganizationByInn(organization.Inn));
 
-            if (user != null)
+            if (existingOrg != null)
             {
                 var errors = new List<string>()
                 {
-                    Errors.AlreadyExist(Entities.User())
+                    Errors.AlreadyExist(Entities.Organization())
                 };
+
                 return _actionService.BadRequestResponse(errors);
             }
 
-            var validationContext = new ValidationContext<UserCreateDto>(userCreateDto);
+            var validationContext = new ValidationContext<OrganizationCreateRequestDto>(organization);
             var validationResult = await _validator.ValidateAsync(validationContext);
 
             if (!validationResult.IsValid)
@@ -61,7 +64,7 @@ namespace DigitTwin.Core.Users
                 return _actionService.BadRequestResponse(errors);
             }
 
-            var model = _mapper.Map<User>(userCreateDto);
+            var model = _mapper.Map<Organization>(organization);
 
             var result = await _repository.Create(model);
 
@@ -69,24 +72,24 @@ namespace DigitTwin.Core.Users
             {
                 var errors = new List<string>
                 {
-                    Errors.CannotCreate(Entities.User())
+                    Errors.CannotCreate(Entities.Organization())
                 };
 
                 return _actionService.BadRequestResponse(errors);
             }
 
-            var createdUser = _mapper.Map<UserDto>(result);
+            var createdOrganization = _mapper.Map<OrganizationDto>(result);
 
-            return _actionService.CreatedResponse(createdUser);
+            return _actionService.CreatedResponse(createdOrganization);
         }
 
         public async Task<IBaseApiResponse> Delete(Guid id)
         {
-            var user = await _repository.GetByFilter(new GetSingleUserById(id));
+            var user = await _repository.GetByFilter(new GetSingleOrganizationById(id));
 
             if (user == null)
             {
-                return _actionService.NotFoundResponse(Errors.CannotFind(Entities.User(), "ID", $"{id}"));
+                return _actionService.NotFoundResponse(Errors.CannotFind(Entities.Organization(), "ID", $"{id}"));
             }
 
             await _repository.Delete(user);
@@ -96,14 +99,14 @@ namespace DigitTwin.Core.Users
 
         public async Task<IBaseApiResponse> GetAllByFilter(Filter filter, int maxElements, int startPosition, int endPosition)
         {
-            var (entities, totalCount) = await _repository.GetAll(filter, maxElements, startPosition, endPosition);
+            var(entities, totalCount) = await _repository.GetAll(filter, maxElements, startPosition, endPosition);
 
             return _actionService.PartialResponse(entities.ToList(), startPosition, endPosition, totalCount);
         }
 
         public async Task<IBaseApiResponse> GetById(Guid id)
         {
-            var user = await _repository.GetByFilter(new GetSingleUserById(id));
+            var user = await _repository.GetByFilter(new GetSingleOrganizationById(id));
 
             if (user == null)
             {
@@ -113,31 +116,31 @@ namespace DigitTwin.Core.Users
             return _actionService.OkResponse(_mapper.Map<UserDto>(user));
         }
 
-        public async Task<IBaseApiResponse> IsEmailExists(string email)
+        public async Task<IBaseApiResponse> IsOrganizationExists(string inn)
         {
-            var user = await _repository.GetByFilter(new GetSingleUserByEmail(email));
+            var user = await _repository.GetByFilter(new GetSingleOrganizationByInn(inn));
 
             return user != null ? _actionService.OkResponse(true) : _actionService.OkResponse(false);
         }
 
-        public async Task<IBaseApiResponse> Update(UserDto userDto)
+        public async Task<IBaseApiResponse> Update(OrganizationDto organization)
         {
-            var user = _mapper.Map<User>(userDto);
+            var model = _mapper.Map<Organization>(organization);
 
-            user = await _repository.Update(user);
+            model = await _repository.Update(model);
 
-            if (user == null)
+            if (model == null)
             {
                 var errors = new List<string>
                 {
-                    Errors.CannotUpdate(Entities.User())
+                    Errors.CannotUpdate(Entities.Organization())
                 };
 
                 return _actionService.BadRequestResponse(errors);
             }
             else
             {
-                return _actionService.OkResponse(_mapper.Map<UserDto>(user));
+                return _actionService.OkResponse(_mapper.Map<OrganizationDto>(organization));
             }
         }
     }

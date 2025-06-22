@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DigitTwin.Core.Users.Logic.Data.Migrations.Postgres
 {
     /// <inheritdoc />
-    public partial class InitMigration_Postgres : Migration
+    public partial class InitMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -38,7 +38,8 @@ namespace DigitTwin.Core.Users.Logic.Data.Migrations.Postgres
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Email = table.Column<string>(type: "character varying(60)", maxLength: 60, nullable: false),
                     Name = table.Column<string>(type: "character varying(60)", maxLength: 60, nullable: true),
-                    Password = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
+                    Password = table.Column<byte[]>(type: "bytea", nullable: true),
+                    PasswordSalt = table.Column<byte[]>(type: "bytea", nullable: true),
                     Type = table.Column<int>(type: "integer", nullable: false, defaultValue: 1),
                     Status = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
                     OrganizationId = table.Column<Guid>(type: "uuid", nullable: true)
