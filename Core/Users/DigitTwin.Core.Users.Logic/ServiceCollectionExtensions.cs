@@ -1,6 +1,7 @@
 ﻿using DigitTwin.Core.ActionService;
 using DigitTwin.Core.Users.Logic.Data;
 using DigitTwin.Core.Users.Logic.Validators.Users;
+using DigitTwin.Core.Users.Logic.Configs;
 using DigitTwin.Infrastructure.ApacheKafka;
 using DigitTwin.Infrastructure.DataContext;
 using DigitTwin.Infrastructure.LoggerSeq;
@@ -36,6 +37,7 @@ namespace DigitTwin.Core.Users
             services.AddActionService();
             services.AddKafka(configuration);
             services.AddRedisService(configuration);
+            services.AddJwtConfiguration(configuration);
 
             return services;
         }
@@ -77,6 +79,22 @@ namespace DigitTwin.Core.Users
         {
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IOrganizationService, OrganizationService>();
+            services.AddScoped<IUserAuthService, UserAuthService>();
+
+            services.AddSingleton<ITokenService, TokenService>();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Добавление конфигурации JWT
+        /// </summary>
+        /// <param name="services">DI контейнер</param>
+        /// <param name="configuration">Конфигурация</param>
+        /// <returns>DI контейнер</returns>
+        private static IServiceCollection AddJwtConfiguration(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<JwtConfiguration>(configuration.GetSection(JwtConfiguration.SectionName));
 
             return services;
         }
