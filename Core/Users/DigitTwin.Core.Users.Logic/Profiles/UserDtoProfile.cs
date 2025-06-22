@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DigitTwin.Lib.Contracts.User;
+using DigitTwin.Lib.Contracts;
 
 namespace DigitTwin.Core.Users
 {

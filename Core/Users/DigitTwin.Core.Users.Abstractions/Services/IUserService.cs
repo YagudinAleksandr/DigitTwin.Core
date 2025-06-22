@@ -1,6 +1,5 @@
 ﻿using DigitTwin.Lib.Abstractions;
 using DigitTwin.Lib.Contracts;
-using DigitTwin.Lib.Contracts.User;
 
 namespace DigitTwin.Core.Users
 {
