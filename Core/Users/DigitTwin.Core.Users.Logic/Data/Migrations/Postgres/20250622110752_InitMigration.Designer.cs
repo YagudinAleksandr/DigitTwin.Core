@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DigitTwin.Core.Users.Logic.Data.Migrations.Postgres
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20250607204235_InitMigration_Postgres")]
-    partial class InitMigration_Postgres
+    [Migration("20250622110752_InitMigration")]
+    partial class InitMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -102,9 +102,11 @@ namespace DigitTwin.Core.Users.Logic.Data.Migrations.Postgres
                     b.Property<Guid?>("OrganizationId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Password")
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                    b.Property<byte[]>("Password")
+                        .HasColumnType("bytea");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .HasColumnType("bytea");
 
                     b.Property<int>("Status")
                         .ValueGeneratedOnAdd()

@@ -1,4 +1,5 @@
 ﻿using DigitTwin.Lib.Abstractions;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace DigitTwin.Core.Users
 {
@@ -22,7 +23,12 @@ namespace DigitTwin.Core.Users
         /// <summary>
         /// Пароль
         /// </summary>
-        public string? Password { get; set; }
+        public byte[]? Password { get; set; }
+
+        /// <summary>
+        /// Хранение ключа шифрования
+        /// </summary>
+        public byte[]? PasswordSalt { get; set; }
 
         /// <summary>
         /// Тип пользователя <see cref="UserTypeEnum"/>
