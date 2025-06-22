@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DigitTwin.Lib.Contracts;
+using DigitTwin.Lib.Misc.Tools;
 
 namespace DigitTwin.Core.Users
 {
@@ -10,7 +11,20 @@ namespace DigitTwin.Core.Users
     {
         public UserDtoProfile() 
         {
-            CreateMap<UserCreateDto, User>();
+            CreateMap<UserCreateDto, User>()
+                .ForMember(dest => dest.Password, opt => opt.Ignore())
+                .ForMember(dest => dest.PasswordSalt, opt => opt.Ignore())
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .AfterMap((src, dest) =>
+                {
+                    if (!string.IsNullOrEmpty(src.Password))
+                    {
+                        PasswordHasherTool.CreatePasswordHash(src.Password, out byte[] passwordHash, out byte[] passwordSalt);
+                        dest.Password = passwordHash;
+                        dest.PasswordSalt = passwordSalt;
+                    }
+                });
+
             CreateMap<UserDto, User>().ReverseMap();
         }
     }
