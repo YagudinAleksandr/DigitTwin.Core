@@ -2,7 +2,7 @@
 using DigitTwin.Core.ActionService;
 using DigitTwin.Lib.Abstractions;
 using DigitTwin.Lib.Contracts;
-using DigitTwin.Lib.Translations.Translators;
+using DigitTwin.Lib.Translations;
 using FluentValidation;
 
 namespace DigitTwin.Core.Users
