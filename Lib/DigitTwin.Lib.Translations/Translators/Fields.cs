@@ -5,16 +5,23 @@ using System.Resources;
 namespace DigitTwin.Lib.Translations
 {
     /// <summary>
-    /// Выбор языковых ресурсов (полей) для типов сущностей
+    /// Выбор языковых ресурсов (полей) для полей
     /// </summary>
-    public static class Entities
+    public static class Fields
     {
         private static readonly ResourceManager _resourceManager =
-            new ResourceManager("DigitTwin.Lib.Translations.Resources.Entities",
+            new ResourceManager("DigitTwin.Lib.Translations.Resources.Fields",
                 Assembly.GetExecutingAssembly());
 
-        public static string User() => Format("User");
-        public static string Organization() => Format("Organization");
+        public static string BankAccount() => Format("BankAccount");
+        public static string CorAccount() => Format("CorAccount");
+        public static string Email() => Format("Email");
+        public static string Inn() => Format("Inn");
+        public static string Kpp() => Format("Kpp");
+        public static string Name() => Format("Name");
+        public static string Ogrn() => Format("Ogrn");
+        public static string OrganizationFullName() => Format("OrganizationFullName");
+        public static string OrganizationName() => Format("OrganizationName");
 
         private static string Format(string key)
         {

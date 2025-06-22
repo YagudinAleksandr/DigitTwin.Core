@@ -2,6 +2,7 @@
 using DigitTwin.Core.ActionService;
 using DigitTwin.Lib.Abstractions;
 using DigitTwin.Lib.Contracts;
+using DigitTwin.Lib.Translations;
 using FluentValidation;
 
 namespace DigitTwin.Core.Users
@@ -36,34 +37,111 @@ namespace DigitTwin.Core.Users
 
         #endregion
 
-        public Task<IBaseApiResponse> Create(OrganizationCreateRequestDto organization)
+        public async Task<IBaseApiResponse> Create(OrganizationCreateRequestDto organization)
         {
-            throw new NotImplementedException();
+            var existingOrg = await _repository.GetByFilter(new GetSingleOrganizationByInn(organization.Inn));
+
+            if (existingOrg != null)
+            {
+                var errors = new List<string>()
+                {
+                    Errors.AlreadyExist(Entities.Organization())
+                };
+
+                return _actionService.BadRequestResponse(errors);
+            }
+
+            var validationContext = new ValidationContext<OrganizationCreateRequestDto>(organization);
+            var validationResult = await _validator.ValidateAsync(validationContext);
+
+            if (!validationResult.IsValid)
+            {
+                var errors = new List<string>();
+                foreach (var error in validationResult.Errors)
+                {
+                    errors.Add(error.ErrorMessage);
+                }
+                return _actionService.BadRequestResponse(errors);
+            }
+
+            var model = _mapper.Map<Organization>(organization);
+
+            var result = await _repository.Create(model);
+
+            if (result == null)
+            {
+                var errors = new List<string>
+                {
+                    Errors.CannotCreate(Entities.Organization())
+                };
+
+                return _actionService.BadRequestResponse(errors);
+            }
+
+            var createdOrganization = _mapper.Map<OrganizationDto>(result);
+
+            return _actionService.CreatedResponse(createdOrganization);
         }
 
-        public Task<IBaseApiResponse> Delete(Guid id)
+        public async Task<IBaseApiResponse> Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var user = await _repository.GetByFilter(new GetSingleOrganizationById(id));
+
+            if (user == null)
+            {
+                return _actionService.NotFoundResponse(Errors.CannotFind(Entities.Organization(), "ID", $"{id}"));
+            }
+
+            await _repository.Delete(user);
+
+            return _actionService.NoContentResponse();
         }
 
-        public Task<IBaseApiResponse> GetAllByFilter(Filter filter, int maxElements, int startPosition, int endPosition)
+        public async Task<IBaseApiResponse> GetAllByFilter(Filter filter, int maxElements, int startPosition, int endPosition)
         {
-            throw new NotImplementedException();
+            var(entities, totalCount) = await _repository.GetAll(filter, maxElements, startPosition, endPosition);
+
+            return _actionService.PartialResponse(entities.ToList(), startPosition, endPosition, totalCount);
         }
 
-        public Task<IBaseApiResponse> GetById(Guid id)
+        public async Task<IBaseApiResponse> GetById(Guid id)
         {
-            throw new NotImplementedException();
+            var user = await _repository.GetByFilter(new GetSingleOrganizationById(id));
+
+            if (user == null)
+            {
+                return _actionService.NotFoundResponse(Errors.CannotFind(Entities.User(), "ID", $"{id}"));
+            }
+
+            return _actionService.OkResponse(_mapper.Map<UserDto>(user));
         }
 
-        public Task<IBaseApiResponse> IsOrganizationExists(string inn)
+        public async Task<IBaseApiResponse> IsOrganizationExists(string inn)
         {
-            throw new NotImplementedException();
+            var user = await _repository.GetByFilter(new GetSingleOrganizationByInn(inn));
+
+            return user != null ? _actionService.OkResponse(true) : _actionService.OkResponse(false);
         }
 
-        public Task<IBaseApiResponse> Update(OrganizationDto organization)
+        public async Task<IBaseApiResponse> Update(OrganizationDto organization)
         {
-            throw new NotImplementedException();
+            var model = _mapper.Map<Organization>(organization);
+
+            model = await _repository.Update(model);
+
+            if (model == null)
+            {
+                var errors = new List<string>
+                {
+                    Errors.CannotUpdate(Entities.Organization())
+                };
+
+                return _actionService.BadRequestResponse(errors);
+            }
+            else
+            {
+                return _actionService.OkResponse(_mapper.Map<OrganizationDto>(organization));
+            }
         }
     }
 }

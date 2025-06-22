@@ -92,6 +92,7 @@ namespace DigitTwin.Core.Users
             services.AddFluentValidationAutoValidation();
             services.AddFluentValidationClientsideAdapters();
             services.AddScoped<IValidator<UserCreateDto>, UserCreationValidator>();
+            services.AddScoped<IValidator<OrganizationCreateRequestDto>, OrganizationCreationValidator>();
 
             return services;
         }

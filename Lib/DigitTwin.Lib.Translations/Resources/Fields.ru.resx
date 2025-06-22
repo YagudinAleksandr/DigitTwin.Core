@@ -117,10 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BankAccount" xml:space="preserve">
+    <value>Расчётный счет</value>
+  </data>
+  <data name="CorAccount" xml:space="preserve">
+    <value>Кореспондентский счет</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>E-mail</value>
   </data>
+  <data name="Inn" xml:space="preserve">
+    <value>ИНН</value>
+  </data>
+  <data name="Kpp" xml:space="preserve">
+    <value>КПП</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Название</value>
+  </data>
+  <data name="Ogrn" xml:space="preserve">
+    <value>ОГРН</value>
+  </data>
+  <data name="OrganizationFullName" xml:space="preserve">
+    <value>Полное название организации</value>
+  </data>
+  <data name="OrganizationName" xml:space="preserve">
+    <value>Краткое название организации</value>
   </data>
 </root>
