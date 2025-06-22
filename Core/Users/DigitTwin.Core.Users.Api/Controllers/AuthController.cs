@@ -1,5 +1,4 @@
 ﻿using DigitTwin.Lib.Contracts;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DigitTwin.Core.Users.Api.Controllers

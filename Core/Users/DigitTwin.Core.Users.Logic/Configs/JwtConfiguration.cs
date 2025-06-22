@@ -26,9 +26,14 @@ namespace DigitTwin.Core.Users.Logic.Configs
         public string Audience { get; set; } = string.Empty;
 
         /// <summary>
-        /// Время жизни токена в минутах
+        /// Время жизни токена
         /// </summary>
-        public int ExpirationMinutes { get; set; } = 1440; // 24 часа по умолчанию
+        public TimeSpan ExpirationToken { get; set; } = TimeSpan.FromDays(1); // 24 часа по умолчанию
+
+        /// <summary>
+        /// Время жизни токена обновления
+        /// </summary>
+        public TimeSpan ExpirationRefresh { get; set; } = TimeSpan.FromDays(7); // 7 суток
 
         /// <summary>
         /// Алгоритм подписи

@@ -66,11 +66,13 @@ namespace DigitTwin.Core.Users
                 return _actionService.BadRequestResponse(errors);
             }
 
-            var token = await _tokenService.CreateTokenAsync(user.Id, user.Email, (int)user.Type);
+            var token = await _tokenService.CreateToken(user.Id, user.Email, user.Type, TokenTypeEnum.Auth);
+            var refresh = await _tokenService.CreateToken(user.Id, user.Email, user.Type, TokenTypeEnum.Refresh);
 
             var userResponse = new UserAuthResponseDto()
             {
                 AuthToken = token,
+                RefreshToken = refresh,
                 User = _mapper.Map<UserDto>(user)
             };
 
@@ -79,9 +81,15 @@ namespace DigitTwin.Core.Users
 
         public async Task<IBaseApiResponse> Logout(Guid userId)
         {
-            await _tokenService.RemoveTokenAsync(userId);
+            await _tokenService.RemoveToken(userId,TokenTypeEnum.Auth);
+            await _tokenService.RemoveToken(userId, TokenTypeEnum.Refresh);
 
             return _actionService.NoContentResponse();
+        }
+
+        public Task<IBaseApiResponse> Refresh(Guid userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

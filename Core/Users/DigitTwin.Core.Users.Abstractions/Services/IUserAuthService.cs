@@ -19,6 +19,8 @@ namespace DigitTwin.Core.Users
         /// </summary>
         /// <param name="userId">ИД пользователя</param>
         /// <returns><see cref="IBaseApiResponse"/></returns>
-        Task<IBaseApiResponse> Logout(Guid userId); 
+        Task<IBaseApiResponse> Logout(Guid userId);
+
+        Task<IBaseApiResponse> Refresh(Guid userId);
     }
 }

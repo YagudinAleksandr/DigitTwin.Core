@@ -1,5 +1,6 @@
 ﻿using DigitTwin.Lib.Abstractions;
 using DigitTwin.Lib.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DigitTwin.Core.Users.Api.Controllers
@@ -10,6 +11,7 @@ namespace DigitTwin.Core.Users.Api.Controllers
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
+    [Authorize]
     public class OrganizationController : ControllerBase
     {
         #region CTOR
