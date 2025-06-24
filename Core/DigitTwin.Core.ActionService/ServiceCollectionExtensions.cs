@@ -12,6 +12,8 @@ namespace DigitTwin.Core.ActionService
         public static IServiceCollection AddActionService(this IServiceCollection services) 
         {
             services.AddScoped<IActionService, ActionService>();
+            services.AddScoped<TokenAuthFilter>();
+            services.AddScoped<TokenRefreshFilter>();
 
             return services;
         }
