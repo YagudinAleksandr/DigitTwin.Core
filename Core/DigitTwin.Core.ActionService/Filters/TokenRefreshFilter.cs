@@ -1,10 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using DigitTwin.Core.Users.Abstractions.Services;
-using DigitTwin.Core.Users.Abstractions.Enums;
-using System.Threading.Tasks;
 
-namespace DigitTwin.Core.ActionService.Filters
+namespace DigitTwin.Core.ActionService
 {
     public class TokenRefreshFilter : IAsyncActionFilter
     {

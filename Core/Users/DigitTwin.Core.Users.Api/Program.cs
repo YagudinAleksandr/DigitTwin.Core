@@ -1,7 +1,6 @@
 using DigitTwin.Core.ActionService;
 using DigitTwin.Core.Users;
 using DigitTwin.Core.Users.Api;
-using DigitTwin.Core.Users.Logic.Configs;
 using DigitTwin.Lib.Abstractions.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Localization;

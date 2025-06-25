@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DigitTwin.Core.Users
+namespace DigitTwin.Lib.Abstractions
 {
     /// <summary>
     /// Типы токенов

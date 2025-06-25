@@ -9,9 +9,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
+	<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.3.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\DigitTwin.Infrastructure.Redis\DigitTwin.Infrastructure.Redis.csproj" />
     <ProjectReference Include="..\..\Lib\DigitTwin.Lib.Misc\DigitTwin.Lib.Misc.csproj" />
   </ItemGroup>
 

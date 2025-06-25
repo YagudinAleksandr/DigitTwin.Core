@@ -1,4 +1,5 @@
-﻿using DigitTwin.Lib.Contracts;
+﻿using DigitTwin.Lib.Abstractions;
+using DigitTwin.Lib.Contracts;
 
 namespace DigitTwin.Core.ActionService
 {
@@ -7,31 +8,6 @@ namespace DigitTwin.Core.ActionService
     /// </summary>
     public interface ITokenService
     {
-        /// <summary>
-        /// Проверить валидность JWT токена
-        /// </summary>
-        /// <param name="token">JWT токен для проверки</param>
-        /// <param name="tokenType">Тип токена</param>
-        /// <returns>true если токен валиден, false в противном случае</returns>
-        Task<bool> ValidateToken(string token, TokenTypeEnum tokenType);
-
-        /// <summary>
-        /// Получить информацию из JWT токена
-        /// </summary>
-        /// <param name="token">JWT токен</param>
-        /// <param name="tokenType">Тип токена</param>
-        /// <returns>Информация о токене или null</returns>
-        Task<TokenInfoDto?> GetTokenInfo(string token, TokenTypeEnum tokenType);
-
-        /// <summary>
-        /// Обновить JWT токен
-        /// </summary>
-        /// <param name="userId">ИД пользователя</param>
-        /// <param name="email">Email пользователя</param>
-        /// <param name="userType">Тип пользователя</param>
-        /// <returns>Новый JWT токен</returns>
-        Task<TokenInfoDto> RefreshToken(Guid userId, string email, UserTypeEnum userType, TokenTypeEnum tokenType);
-
         /// <summary>
         /// Создать JWT токен для пользователя
         /// </summary>
@@ -65,5 +41,30 @@ namespace DigitTwin.Core.ActionService
         /// <param name="userId">ИД пользователя</param>
         /// <param name="tokenType">Тип токена</param>
         Task RemoveToken(Guid userId, TokenTypeEnum tokenType);
+
+        /// <summary>
+        /// Проверить валидность JWT токена
+        /// </summary>
+        /// <param name="token">JWT токен для проверки</param>
+        /// <param name="tokenType">Тип токена</param>
+        /// <returns>true если токен валиден, false в противном случае</returns>
+        Task<bool> ValidateToken(string token, TokenTypeEnum tokenType);
+
+        /// <summary>
+        /// Получить информацию из JWT токена
+        /// </summary>
+        /// <param name="token">JWT токен</param>
+        /// <param name="tokenType">Тип токена</param>
+        /// <returns>Информация о токене или null</returns>
+        Task<TokenInfoDto?> GetTokenInfo(string token, TokenTypeEnum tokenType);
+
+        /// <summary>
+        /// Обновить JWT токен
+        /// </summary>
+        /// <param name="userId">ИД пользователя</param>
+        /// <param name="email">Email пользователя</param>
+        /// <param name="userType">Тип пользователя</param>
+        /// <returns>Новый JWT токен</returns>
+        Task<TokenInfoDto> RefreshToken(Guid userId, string email, UserTypeEnum userType, TokenTypeEnum tokenType);
     }
 }
