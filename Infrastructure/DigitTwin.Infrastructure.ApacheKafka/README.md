@@ -1,19 +1,19 @@
-# DigitTwin.Infrastructure.ApacheKafka - Библиотека для работы с Apache Kafka в .NET
+п»ї# DigitTwin.Infrastructure.ApacheKafka - Р‘РёР±Р»РёРѕС‚РµРєР° РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ Apache Kafka РІ .NET
 
-Библиотека предоставляет простой способ работы с Apache Kafka через:
-- Поддержку множества продюсеров/консьюмеров
-- DI-интеграцию
-- Настройку через appsettings.json
-- Автоматическое управление ресурсами
+Р‘РёР±Р»РёРѕС‚РµРєР° РїСЂРµРґРѕСЃС‚Р°РІР»СЏРµС‚ РїСЂРѕСЃС‚РѕР№ СЃРїРѕСЃРѕР± СЂР°Р±РѕС‚С‹ СЃ Apache Kafka С‡РµСЂРµР·:
+- РџРѕРґРґРµСЂР¶РєСѓ РјРЅРѕР¶РµСЃС‚РІР° РїСЂРѕРґСЋСЃРµСЂРѕРІ/РєРѕРЅСЃСЊСЋРјРµСЂРѕРІ
+- DI-РёРЅС‚РµРіСЂР°С†РёСЋ
+- РќР°СЃС‚СЂРѕР№РєСѓ С‡РµСЂРµР· appsettings.json
+- РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРµ СѓРїСЂР°РІР»РµРЅРёРµ СЂРµСЃСѓСЂСЃР°РјРё
 
-## Установка
+## РЈСЃС‚Р°РЅРѕРІРєР°
 
-1. Добавьте пакет в проект:
+1. Р”РѕР±Р°РІСЊС‚Рµ РїР°РєРµС‚ РІ РїСЂРѕРµРєС‚:
 ```bash
 dotnet add package KafkaLib
 ```
 
-2. Добавьте в appsettings.json:
+2. Р”РѕР±Р°РІСЊС‚Рµ РІ appsettings.json:
 ```json
 {
   "Kafka": {
@@ -46,12 +46,12 @@ dotnet add package KafkaLib
 }
 ```
 
-3. Зарегистрируйте сервисы в DI:
+3. Р—Р°СЂРµРіРёСЃС‚СЂРёСЂСѓР№С‚Рµ СЃРµСЂРІРёСЃС‹ РІ DI:
 ```csharp
 builder.Services.AddKafka(builder.Configuration);
 ```
 
-## Использование продюсера
+## РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РїСЂРѕРґСЋСЃРµСЂР°
 ```csharp
 public class OrderService
 {
@@ -70,7 +70,7 @@ public class OrderService
 }
 ```
 
-## Использование консьюмера
+## РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєРѕРЅСЃСЊСЋРјРµСЂР°
 ```csharp
 public class OrderProcessor : BackgroundService
 {
@@ -93,7 +93,7 @@ public class OrderProcessor : BackgroundService
             }
             catch (Exception ex)
             {
-                // Обработка ошибок
+                // РћР±СЂР°Р±РѕС‚РєР° РѕС€РёР±РѕРє
             }
         }
     }

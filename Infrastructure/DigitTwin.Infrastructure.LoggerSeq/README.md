@@ -1,10 +1,10 @@
-# Сервис логирования для работы через SEQ
+п»ї# РЎРµСЂРІРёСЃ Р»РѕРіРёСЂРѕРІР°РЅРёСЏ РґР»СЏ СЂР°Р±РѕС‚С‹ С‡РµСЂРµР· SEQ
 
-## Подключение через DI
+## РџРѕРґРєР»СЋС‡РµРЅРёРµ С‡РµСЂРµР· DI
 ```csharp
 services.AddLogger(services, configuration);
 ```
-Конфигурация
+РљРѕРЅС„РёРіСѓСЂР°С†РёСЏ
 ```json
 {
   "LoggerSeq": {
@@ -15,7 +15,7 @@ services.AddLogger(services, configuration);
 }
 ```
 
-## Использование
+## РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ
 ```csharp
 
 private readonly ILoggerService _logger;
