@@ -1,6 +1,7 @@
-﻿using DigitTwin.Lib.Contracts;
+﻿using DigitTwin.Lib.Abstractions;
+using DigitTwin.Lib.Contracts;
 
-namespace DigitTwin.Core.Users
+namespace DigitTwin.Core.ActionService
 {
     /// <summary>
     /// Сервис для работы с JWT токенами

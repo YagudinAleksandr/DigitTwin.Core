@@ -1,4 +1,4 @@
-namespace DigitTwin.Core.Users.Logic.Configs
+﻿namespace DigitTwin.Core.ActionService
 {
     /// <summary>
     /// Конфигурация JWT токенов
@@ -40,4 +40,4 @@ namespace DigitTwin.Core.Users.Logic.Configs
         /// </summary>
         public string Algorithm { get; set; } = "HS256";
     }
-} 
+}

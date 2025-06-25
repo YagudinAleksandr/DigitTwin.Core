@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using DigitTwin.Infrastructure.Redis;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DigitTwin.Core.ActionService
 {
@@ -9,9 +11,29 @@ namespace DigitTwin.Core.ActionService
         /// </summary>
         /// <param name="services">DI контейнер</param>
         /// <returns>DI контейнер</returns>
-        public static IServiceCollection AddActionService(this IServiceCollection services) 
+        public static IServiceCollection AddActionService(this IServiceCollection services, IConfiguration configuration) 
         {
+            services.AddRedisService(configuration);
+            services.AddJwtConfiguration(configuration);
+
+            services.AddSingleton<ITokenService, TokenService>();
+
             services.AddScoped<IActionService, ActionService>();
+            services.AddScoped<TokenAuthFilter>();
+            services.AddScoped<TokenRefreshFilter>();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Добавление конфигурации JWT
+        /// </summary>
+        /// <param name="services">DI контейнер</param>
+        /// <param name="configuration">Конфигурация</param>
+        /// <returns>DI контейнер</returns>
+        private static IServiceCollection AddJwtConfiguration(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<JwtConfiguration>(configuration.GetSection(JwtConfiguration.SectionName));
 
             return services;
         }

@@ -1,5 +1,6 @@
 ﻿using DigitTwin.Core.Users.Logic.Data;
 using DigitTwin.Infrastructure.LoggerSeq;
+using DigitTwin.Lib.Abstractions;
 using DigitTwin.Lib.Abstractions.Services;
 using DigitTwin.Lib.Misc.Tools;
 using Microsoft.EntityFrameworkCore;

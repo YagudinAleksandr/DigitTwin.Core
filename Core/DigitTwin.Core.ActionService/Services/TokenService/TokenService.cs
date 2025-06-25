@@ -1,16 +1,15 @@
-﻿using System.Text;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using DigitTwin.Core.Users.Logic.Configs;
+using System.Text;
 using DigitTwin.Infrastructure.Redis;
+using DigitTwin.Lib.Abstractions;
+using DigitTwin.Lib.Contracts;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using DigitTwin.Lib.Contracts;
 
-namespace DigitTwin.Core.Users
+namespace DigitTwin.Core.ActionService
 {
-    /// <inheritdoc cref="ITokenService"/>
-    public class TokenService : ITokenService
+    internal class TokenService : ITokenService
     {
         #region CTOR
         /// <inheritdoc cref="IRedisService{T}"/>
