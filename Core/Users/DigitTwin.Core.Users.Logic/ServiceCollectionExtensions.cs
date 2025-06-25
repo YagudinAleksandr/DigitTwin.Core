@@ -6,7 +6,7 @@ using DigitTwin.Infrastructure.DataContext;
 using DigitTwin.Infrastructure.LoggerSeq;
 using DigitTwin.Infrastructure.Redis;
 using DigitTwin.Lib.Abstractions.Services;
-using DigitTwin.Lib.Contracts.User;
+using DigitTwin.Lib.Contracts;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.Configuration;
@@ -75,7 +75,8 @@ namespace DigitTwin.Core.Users
         /// <returns>DI контейнер</returns>
         private static IServiceCollection AddServices(this IServiceCollection services)
         {
-            services.AddSingleton<IUserService, UserService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IOrganizationService, OrganizationService>();
 
             return services;
         }
@@ -91,6 +92,7 @@ namespace DigitTwin.Core.Users
             services.AddFluentValidationAutoValidation();
             services.AddFluentValidationClientsideAdapters();
             services.AddScoped<IValidator<UserCreateDto>, UserCreationValidator>();
+            services.AddScoped<IValidator<OrganizationCreateRequestDto>, OrganizationCreationValidator>();
 
             return services;
         }
