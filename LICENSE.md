@@ -1,7 +1,13 @@
 ﻿# НЕКОММЕРЧЕСКАЯ ЛИЦЕНЗИЯ  
 **Проект:** DigitTwin.Core
-**Авторы:** YagudinAleksandr, Vladim1rZolotarev, ArsenKurtosmanov 
-**Год создания:** [2024]  
+
+**Авторы:** 
+- [YagudinAleksandr](https://github.com/YagudinAleksandr)  
+- [Vladim1rZolotarev](https://github.com/Vladim1rZolotarev) 
+- [ArsenKurtosmanov](https://github.com/ArsenKurtosmanov) 
+
+**Год создания:** 2025
+
 **Контакт для запросов:** aleks19972003.12@gmail.com | Telegram: @DDDIncs  
 
 ---
@@ -35,4 +41,4 @@
 
 ---
 
-© 2024 DigitTwin | *Все права защищены.*  
+© 2025 DigitTwin | *Все права защищены.*  
