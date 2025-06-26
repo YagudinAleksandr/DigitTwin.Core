@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   seq:
     image: datalust/seq:2025.2
@@ -231,6 +229,7 @@ services:
         hard: 262144
     volumes:
       - clickhouse_data:/var/lib/clickhouse
+      - ./clickhouse/init:/docker-entrypoint-initdb.d
     networks:
       - DigitTwin_net
     healthcheck:
@@ -242,6 +241,76 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    restart: unless-stopped
+  
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - DigitTwin_net
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - DigitTwin_net
+    restart: unless-stopped
+
+  redis_exporter:
+    image: oliver006/redis_exporter:latest
+    container_name: redis_exporter
+    environment:
+      REDIS_ADDR: redis://redis_container:6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    ports:
+      - "9121:9121"
+    networks:
+      - DigitTwin_net
+    restart: unless-stopped
+
+  postgres_exporter:
+    image: prometheuscommunity/postgres-exporter
+    container_name: postgres_exporter
+    environment:
+      DATA_SOURCE_NAME: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?sslmode=disable"
+    ports:
+      - "9187:9187"
+    networks:
+      - DigitTwin_net
+    restart: unless-stopped
+
+  clickhouse_exporter:
+    image: f1yegor/clickhouse-exporter
+    container_name: clickhouse_exporter
+    environment:
+      CLICKHOUSE_USER: ${CLICKHOUSE_USER}
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD}
+      CLICKHOUSE_DB: ${CLICKHOUSE_DB}
+      CLICKHOUSE_URL: http://clickhouse-server:8123
+    ports:
+      - "9116:9116"
+    networks:
+      - DigitTwin_net
+    restart: unless-stopped
+
+  kafka_exporter:
+    image: danielqsj/kafka-exporter:latest
+    container_name: kafka_exporter
+    ports:
+      - "9308:9308"
+    command:
+      - "--kafka.server=broker-1:19092"
+    networks:
+      - DigitTwin_net
     restart: unless-stopped
 
 networks:
@@ -259,3 +328,4 @@ volumes:
   controller_data_1:
   controller_data_2:
   controller_data_3:
+  grafana_data:
