@@ -21,6 +21,7 @@ namespace DigitTwin.Core.ActionService
             services.AddScoped<IActionService, ActionService>();
             services.AddScoped<TokenAuthFilter>();
             services.AddScoped<TokenRefreshFilter>();
+            services.AddScoped<TokenRoleFilter>();
 
             return services;
         }

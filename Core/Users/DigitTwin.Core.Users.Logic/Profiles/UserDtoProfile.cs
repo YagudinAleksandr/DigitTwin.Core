@@ -25,7 +25,10 @@ namespace DigitTwin.Core.Users
                     }
                 });
 
-            CreateMap<UserDto, User>().ReverseMap();
+            CreateMap<UserDto, User>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.Parse(src.Id)))
+                .ReverseMap()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString()));
         }
     }
 }

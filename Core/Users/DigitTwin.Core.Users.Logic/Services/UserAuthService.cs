@@ -38,7 +38,7 @@ namespace DigitTwin.Core.Users
         {
             var user = await _repository.GetByFilter(new GetSingleUserByEmail(userAuthRequestDto.Email));
 
-            if (user == null) 
+            if (user == null)
             {
                 var errors = new List<string>
                 {
@@ -48,7 +48,7 @@ namespace DigitTwin.Core.Users
                 return _actionService.BadRequestResponse(errors);
             }
 
-            if(user.PasswordSalt == null || user.Password == null)
+            if (user.PasswordSalt == null || user.Password == null)
             {
                 var errors = new List<string>
                 {
@@ -66,8 +66,8 @@ namespace DigitTwin.Core.Users
                 return _actionService.BadRequestResponse(errors);
             }
 
-            var token = await _tokenService.CreateToken(user.Id, user.Email, user.Type, TokenTypeEnum.Auth);
-            var refresh = await _tokenService.CreateToken(user.Id, user.Email, user.Type, TokenTypeEnum.Refresh);
+            var token = await _tokenService.CreateToken(user.Id.ToString(), user.Email, user.Type, TokenTypeEnum.Auth);
+            var refresh = await _tokenService.CreateToken(user.Id.ToString(), user.Email, user.Type, TokenTypeEnum.Refresh);
 
             var userResponse = new UserAuthResponseDto()
             {
@@ -81,8 +81,8 @@ namespace DigitTwin.Core.Users
 
         public async Task<IBaseApiResponse> Logout(Guid userId)
         {
-            await _tokenService.RemoveToken(userId,TokenTypeEnum.Auth);
-            await _tokenService.RemoveToken(userId, TokenTypeEnum.Refresh);
+            await _tokenService.RemoveToken(userId.ToString(), TokenTypeEnum.Auth);
+            await _tokenService.RemoveToken(userId.ToString(), TokenTypeEnum.Refresh);
 
             return _actionService.NoContentResponse();
         }

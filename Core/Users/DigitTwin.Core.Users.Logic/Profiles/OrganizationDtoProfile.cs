@@ -11,7 +11,10 @@ namespace DigitTwin.Core.Users.Logic.Profiles
         public OrganizationDtoProfile() 
         {
             CreateMap<OrganizationCreateRequestDto, Organization>();
-            CreateMap<OrganizationDto, Organization>().ReverseMap();
+            CreateMap<OrganizationDto, Organization>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.Parse(src.Id)))
+                .ReverseMap()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString()));
         }
     }
 }

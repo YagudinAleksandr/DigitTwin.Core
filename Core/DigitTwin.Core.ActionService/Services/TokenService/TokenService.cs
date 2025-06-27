@@ -41,79 +41,67 @@ namespace DigitTwin.Core.ActionService
         #endregion
 
         /// <inheritdoc cref="ITokenService.CreateToken"/>
-        public async Task<TokenInfoDto> CreateToken(Guid userId, string email, UserTypeEnum userType, TokenTypeEnum tokenType)
+        public async Task<TokenInfoDto> CreateToken(string userId, string email, UserTypeEnum userType, TokenTypeEnum tokenType)
         {
-            // Создаем JWT токен
+            var userIdStr = userId.ToString();
             var token = GenerateJwtToken(userId, email, userType, tokenType);
-
-            // Создаем информацию о токене
+            var expires = DateTimeOffset.UtcNow.Add(tokenType == TokenTypeEnum.Auth ? _jwtConfig.ExpirationToken : _jwtConfig.ExpirationRefresh).ToUnixTimeSeconds();
+            var created = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             var tokenInfo = new TokenInfoDto
             {
-                UserId = userId,
+                UserId = userIdStr,
                 Email = email,
                 UserType = (int)userType,
-                CreatedAt = DateTime.UtcNow,
-                ExpiresAt = DateTime.UtcNow.Add(tokenType == TokenTypeEnum.Auth ? _jwtConfig.ExpirationToken : _jwtConfig.ExpirationRefresh),
+                CreatedAt = (int)created,
+                ExpiresAt = (int)expires,
                 Token = token
             };
-
-            // Сохраняем токен в Redis
             var expirationTime = tokenType == TokenTypeEnum.Auth ? _jwtConfig.ExpirationToken : _jwtConfig.ExpirationRefresh;
-            await SaveToken(userId, token, expirationTime, tokenType);
-
-            // Сохраняем информацию о токене по значению токена для быстрого поиска
+            await SaveToken(userIdStr, token, expirationTime, tokenType);
             var tokenValueKey = $"{TokenValuePrefix}{token}";
             await _redisService.SetAsync(tokenValueKey, tokenInfo, expirationTime);
-
             return tokenInfo;
         }
 
         /// <inheritdoc cref="ITokenService.SaveToken"/>
-        public async Task SaveToken(Guid userId, string token, TimeSpan expirationTime, TokenTypeEnum tokenType)
+        public async Task SaveToken(string userId, string token, TimeSpan expirationTime, TokenTypeEnum tokenType)
         {
-            string tokenKeyType = tokenType == TokenTypeEnum.Auth ? TokenKeyPrefix : TokenKeyRefreshPrefix;
+            var tokenKeyType = tokenType == TokenTypeEnum.Auth ? TokenKeyPrefix : TokenKeyRefreshPrefix;
             var tokenKey = $"{tokenKeyType}{userId}";
+            var now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            var expires = DateTimeOffset.UtcNow.Add(expirationTime).ToUnixTimeSeconds();
             var tokenInfo = new TokenInfoDto
             {
                 UserId = userId,
                 Token = token,
-                CreatedAt = DateTime.UtcNow,
-                ExpiresAt = DateTime.UtcNow.Add(expirationTime)
+                CreatedAt = (int)now,
+                ExpiresAt = (int)expires
             };
-
             await _redisService.SetAsync(tokenKey, tokenInfo, expirationTime);
         }
 
         /// <inheritdoc cref="ITokenService.GetToken"/>
-        public async Task<string?> GetToken(Guid userId, TokenTypeEnum tokenType)
+        public async Task<string?> GetToken(string userId, TokenTypeEnum tokenType)
         {
             var tokenTypeKeyPrefix = tokenType == TokenTypeEnum.Auth ? TokenKeyPrefix : TokenKeyRefreshPrefix;
             var tokenKey = $"{tokenTypeKeyPrefix}{userId}";
             var tokenInfo = await _redisService.GetAsync(tokenKey);
-
-            if (tokenInfo == null || DateTime.UtcNow > tokenInfo.ExpiresAt)
+            var now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            if (tokenInfo == null || now > tokenInfo.ExpiresAt)
             {
-                // Токен не найден или истек
                 await RemoveToken(userId, tokenType);
                 return null;
             }
-
             return tokenInfo.Token;
         }
 
         /// <inheritdoc cref="ITokenService.RemoveToken"/>
-        public async Task RemoveToken(Guid userId, TokenTypeEnum tokenType)
+        public async Task RemoveToken(string userId, TokenTypeEnum tokenType)
         {
             var tokenTypeKeyPrefix = tokenType == TokenTypeEnum.Auth ? TokenKeyPrefix : TokenKeyRefreshPrefix;
             var tokenKey = $"{tokenTypeKeyPrefix}{userId}";
-
-            // Получаем информацию о токене перед удалением
             var tokenInfo = await _redisService.GetAsync(tokenKey);
-
-            // Удаляем токен по ID пользователя
             await _redisService.RemoveAsync(tokenKey);
-
-            // Удаляем токен по значению токена
             if (tokenInfo != null && !string.IsNullOrEmpty(tokenInfo.Token))
             {
                 var tokenValueKey = $"{TokenValuePrefix}{tokenInfo.Token}";
@@ -126,13 +114,10 @@ namespace DigitTwin.Core.ActionService
         {
             if (string.IsNullOrEmpty(token))
                 return false;
-
             try
             {
-                // Проверяем JWT токен
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(_jwtConfig.SecretKey);
-
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
@@ -144,22 +129,16 @@ namespace DigitTwin.Core.ActionService
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero
                 }, out SecurityToken validatedToken);
-
-                // Проверяем, есть ли токен в Redis
                 var tokenValueKey = $"{TokenValuePrefix}{token}";
                 var tokenInfo = await _redisService.GetAsync(tokenValueKey);
-
+                var now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
                 if (tokenInfo == null)
                     return false;
-
-                // Проверяем, не истек ли токен
-                if (DateTime.UtcNow > tokenInfo.ExpiresAt)
+                if (now > tokenInfo.ExpiresAt)
                 {
-                    // Токен истек, удаляем его
                     await RemoveToken(tokenInfo.UserId, tokenType);
                     return false;
                 }
-
                 return true;
             }
             catch
@@ -173,26 +152,17 @@ namespace DigitTwin.Core.ActionService
         {
             if (string.IsNullOrEmpty(token))
                 return null;
-
             try
             {
-                // Декодируем JWT токен
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var jwtToken = tokenHandler.ReadJwtToken(token);
-
-                // Получаем информацию из claims
                 var userIdClaim = jwtToken.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
-                var emailClaim = jwtToken.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
-                var userTypeClaim = jwtToken.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
-
-                if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out var userId))
+                if (string.IsNullOrEmpty(userIdClaim))
                     return null;
-
-                // Проверяем, есть ли токен в Redis
                 var tokenValueKey = $"{TokenValuePrefix}{token}";
                 var tokenInfo = await _redisService.GetAsync(tokenValueKey);
-
-                if (tokenInfo == null || DateTime.UtcNow > tokenInfo.ExpiresAt)
+                var now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                if (tokenInfo == null || now > tokenInfo.ExpiresAt)
                 {
                     if (tokenInfo != null)
                     {
@@ -200,7 +170,6 @@ namespace DigitTwin.Core.ActionService
                     }
                     return null;
                 }
-
                 return tokenInfo;
             }
             catch
@@ -210,12 +179,10 @@ namespace DigitTwin.Core.ActionService
         }
 
         /// <inheritdoc cref="ITokenService.RefreshToken"/>
-        public async Task<TokenInfoDto> RefreshToken(Guid userId, string email, UserTypeEnum userType, TokenTypeEnum tokenType)
+        public async Task<TokenInfoDto> RefreshToken(string userId, string email, UserTypeEnum userType, TokenTypeEnum tokenType)
         {
-            // Удаляем старый токен
-            await RemoveToken(userId, tokenType);
-
-            // Создаем новый токен
+            var userIdStr = userId.ToString();
+            await RemoveToken(userIdStr, tokenType);
             return await CreateToken(userId, email, userType, tokenType);
         }
 
@@ -227,7 +194,7 @@ namespace DigitTwin.Core.ActionService
         /// <param name="userType">Тип пользователя</param>
         /// <param name="tokenType">Тип токена</param>
         /// <returns>JWT токен</returns>
-        private string GenerateJwtToken(Guid userId, string email, UserTypeEnum userType, TokenTypeEnum tokenType)
+        private string GenerateJwtToken(string userId, string email, UserTypeEnum userType, TokenTypeEnum tokenType)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtConfig.SecretKey);

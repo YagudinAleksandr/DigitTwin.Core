@@ -16,7 +16,7 @@ namespace DigitTwin.Core.ActionService
         /// <param name="userType">Тип пользователя</param>
         /// <param name="tokenType">Тип токена</param>
         /// <returns>Созданный JWT токен</returns>
-        Task<TokenInfoDto> CreateToken(Guid userId, string email, UserTypeEnum userType, TokenTypeEnum tokenType);
+        Task<TokenInfoDto> CreateToken(string userId, string email, UserTypeEnum userType, TokenTypeEnum tokenType);
 
         /// <summary>
         /// Сохранить токен в Redis
@@ -25,7 +25,7 @@ namespace DigitTwin.Core.ActionService
         /// <param name="token">JWT токен</param>
         /// <param name="expirationTime">Время истечения токена</param>
         /// <param name="tokenType">Тип токена</param>
-        Task SaveToken(Guid userId, string token, TimeSpan expirationTime, TokenTypeEnum tokenType);
+        Task SaveToken(string userId, string token, TimeSpan expirationTime, TokenTypeEnum tokenType);
 
         /// <summary>
         /// Получить токен из Redis
@@ -33,14 +33,14 @@ namespace DigitTwin.Core.ActionService
         /// <param name="userId">ИД пользователя</param>
         /// <param name="tokenType">Тип токена</param>
         /// <returns>Токен или null если не найден</returns>
-        Task<string?> GetToken(Guid userId, TokenTypeEnum tokenType);
+        Task<string?> GetToken(string userId, TokenTypeEnum tokenType);
 
         /// <summary>
         /// Удалить токен из Redis
         /// </summary>
         /// <param name="userId">ИД пользователя</param>
         /// <param name="tokenType">Тип токена</param>
-        Task RemoveToken(Guid userId, TokenTypeEnum tokenType);
+        Task RemoveToken(string userId, TokenTypeEnum tokenType);
 
         /// <summary>
         /// Проверить валидность JWT токена
@@ -65,6 +65,6 @@ namespace DigitTwin.Core.ActionService
         /// <param name="email">Email пользователя</param>
         /// <param name="userType">Тип пользователя</param>
         /// <returns>Новый JWT токен</returns>
-        Task<TokenInfoDto> RefreshToken(Guid userId, string email, UserTypeEnum userType, TokenTypeEnum tokenType);
+        Task<TokenInfoDto> RefreshToken(string userId, string email, UserTypeEnum userType, TokenTypeEnum tokenType);
     }
 }

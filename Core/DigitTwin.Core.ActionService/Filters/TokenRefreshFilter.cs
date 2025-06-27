@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace DigitTwin.Core.ActionService
 {
+    /// <summary>
+    /// Фильтр для проверки токена обновления
+    /// </summary>
     public class TokenRefreshFilter : IAsyncActionFilter
     {
         private readonly ITokenService _tokenService;
