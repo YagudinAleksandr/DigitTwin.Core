@@ -2,6 +2,7 @@ using DigitTwin.Lib.Abstractions;
 using DigitTwin.Lib.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using DigitTwin.Core.ActionService;
 
 namespace DigitTwin.Core.Users.Api.Controllers;
 
@@ -11,7 +12,7 @@ namespace DigitTwin.Core.Users.Api.Controllers;
 [ApiController]
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiVersion("1.0")]
-[Authorize]
+[ServiceFilter(typeof(TokenAuthFilter))]
 public class UsersController : ControllerBase
 {
     #region CTOR
